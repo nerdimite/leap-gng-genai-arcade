@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique // Team name as a unique identifier
+  currentLevel String    @default("1") // Track the current level
+  score       Int       @default(0) // Current score
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  wikipediaGames WikipediaGameState[] // Relation to Wikipedia game states
+  quizGames      QuizGameState[]      // Relation to Quiz game states
+}
+
+model WikipediaGameState {
+  id         Int      @id @default(autoincrement())
+  teamName   String   // Team name reference
+  targetPage String   // Target page for this round
+  clicks     Int      @default(0) // Number of clicks taken
+  timeTaken  Int      @default(0) // Time taken in seconds
+  completed  Boolean  @default(false) // Whether the round was completed
+  startedAt  DateTime @default(now()) // When the round was started
+  completedAt DateTime? // When the round was completed (nullable)
+  team       Team     @relation(fields: [teamName], references: [name]) // Relation to Team
+
+  @@unique([teamName, targetPage]) // Composite unique constraint for lookups
+}
+
+model QuizGameState {
+  id          Int      @id @default(autoincrement())
+  teamName    String   // Team name reference
+  questionId  String   // Question ID for this round
+  timeTaken   Int      @default(0) // Time taken in seconds
+  completed   Boolean  @default(false) // Whether the round was completed
+  isCorrect   Boolean  @default(false) // Whether the answer was correct
+  startedAt   DateTime @default(now()) // When the round was started
+  completedAt DateTime? // When the round was completed (nullable)
+  team        Team     @relation(fields: [teamName], references: [name]) // Relation to Team
+
+  @@unique([teamName, questionId]) // Composite unique constraint for lookups
+}

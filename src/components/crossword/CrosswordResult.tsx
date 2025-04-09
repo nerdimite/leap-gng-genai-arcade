@@ -9,8 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { IconTrophy, IconRefresh } from "@tabler/icons-react";
+import { IconTrophy, IconRefresh, IconHome } from "@tabler/icons-react";
 import ReactConfetti from "react-confetti";
+import { useTeam } from "@/contexts/TeamContext";
 
 type CrosswordResultProps = {
   score: number;
@@ -23,6 +24,7 @@ export function CrosswordResult({
   maxScore,
   onRestart,
 }: CrosswordResultProps) {
+  const { team, updateTeamScore, updateTeamLevel } = useTeam();
   const percentage = Math.round((score / maxScore) * 100);
   const [confettiPieces, setConfettiPieces] = useState(1000);
 
@@ -31,6 +33,28 @@ export function CrosswordResult({
     width: typeof window !== "undefined" ? window.innerWidth : 0,
     height: typeof window !== "undefined" ? window.innerHeight : 0,
   });
+
+  // Update team score and level when the crossword is completed
+  useEffect(() => {
+    if (team) {
+      const teamLevel = parseInt(team.currentLevel, 10);
+      const currentGameLevel = 3; // Prompt Puzzler is level 3
+
+      // Convert score to integer for consistency
+      const normalizedScore = Math.round(score);
+
+      // Only update if the new score is higher than the current team score
+      if (normalizedScore > team.score) {
+        updateTeamScore(normalizedScore);
+      }
+
+      // If this is the current level and they got a good score, unlock the next level
+      if (teamLevel === currentGameLevel && percentage >= 70 && teamLevel < 4) {
+        // Unlock next level
+        updateTeamLevel((teamLevel + 1).toString());
+      }
+    }
+  }, [score, percentage, team, updateTeamScore, updateTeamLevel]);
 
   // Update window dimensions on resize
   useEffect(() => {
@@ -131,24 +155,41 @@ export function CrosswordResult({
           </p>
         </div>
 
+        {percentage >= 70 && team && parseInt(team.currentLevel, 10) === 3 && (
+          <div className="bg-green-900/30 p-4 rounded-md border border-green-500 text-center w-full">
+            <p className="text-green-400 font-bold mb-1">Level 4 Unlocked!</p>
+            <p className="text-gray-300">
+              You can now play the Visual Puzzler level!
+            </p>
+          </div>
+        )}
+
         <div className="bg-gray-700 p-4 rounded-md w-full">
           <h3 className="text-xl text-cyan-400 mb-2">Fun AI Crossword Fact</h3>
           <p className="text-gray-200">
             Many modern crossword puzzles now include AI-related terms as
-            they've become more mainstream. Terms like "neural networks" and
-            "machine learning" are appearing more frequently in puzzles
-            worldwide!
+            they&apos;ve become more mainstream. Terms like &quot;neural
+            networks&quot; and &quot;machine learning&quot; are appearing more
+            frequently in puzzles worldwide!
           </p>
         </div>
       </CardContent>
 
-      <CardFooter className="flex justify-center">
+      <CardFooter className="flex justify-center gap-4">
         <Button
           onClick={handleRestart}
           className="px-8 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white font-bold flex items-center gap-2"
         >
           <IconRefresh size={20} />
           Play Again
+        </Button>
+
+        <Button
+          onClick={() => (window.location.href = "/glitch-and-giggle")}
+          className="px-8 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold flex items-center gap-2"
+        >
+          <IconHome size={20} />
+          Back to Levels
         </Button>
       </CardFooter>
     </Card>

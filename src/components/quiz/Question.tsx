@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,7 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { validateAnswer } from "@/utils/answerValidation";
+import { useTeam } from "@/contexts/TeamContext";
+import { Progress } from "@/components/ui/progress";
 
 export type QuestionData = {
   id: number;
@@ -20,12 +21,26 @@ export type QuestionData = {
   hint?: string; // Optional hint for difficult questions
 };
 
+// New interface for API-based quiz questions
+export interface ApiQuestionData {
+  quizId: string;
+  question: string;
+  hint?: string;
+  order: number;
+  isFinal: boolean;
+  explanation?: string;
+  correctAnswer?: string;
+}
+
 type QuestionProps = {
-  data: QuestionData;
+  data: ApiQuestionData;
   onAnswer: (isCorrect: boolean) => void;
   currentQuestion: number;
   totalQuestions: number;
 };
+
+// Constants
+const QUESTION_TIMER = 10; // 10 seconds per question
 
 export function Question({
   data,
@@ -33,22 +48,104 @@ export function Question({
   currentQuestion,
   totalQuestions,
 }: QuestionProps) {
+  const { team } = useTeam();
   const [userAnswer, setUserAnswer] = useState("");
   const [hasAnswered, setHasAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(QUESTION_TIMER);
+  const [explanation, setExplanation] = useState("");
+  const [correctAnswer, setCorrectAnswer] = useState("");
+  const startTimeRef = useRef(Date.now());
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Start the timer when the component mounts
+  useEffect(() => {
+    // Clear any existing timer when component mounts or updates
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    // Don't start timer if already answered
+    if (hasAnswered) return;
+
+    startTimeRef.current = Date.now();
+
+    // Set up the countdown timer
+    timerRef.current = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      const remaining = Math.max(0, QUESTION_TIMER - elapsed);
+      setTimeLeft(remaining);
+
+      // Automatically move to the next question if time runs out
+      if (remaining === 0 && !hasAnswered) {
+        clearInterval(timerRef.current!);
+        validateWithApi("");
+      }
+    }, 1000);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [data, hasAnswered]);
+
+  // API validation function
+  const validateWithApi = async (answer: string) => {
+    try {
+      // Record start time for this question
+      const timeTaken = Math.floor((Date.now() - startTimeRef.current) / 1000);
+
+      // Call validate API
+      const validateResponse = await fetch("/api/quiz-game/validate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          answer,
+          quizId: data.quizId,
+        }),
+      });
+
+      const validationResult = await validateResponse.json();
+
+      setIsCorrect(validationResult.isCorrect);
+      setExplanation(validationResult.explanation);
+      if (!validationResult.isCorrect) {
+        setCorrectAnswer(validationResult.correctAnswer);
+      }
+      setHasAnswered(true);
+
+      // Record the game state in the database
+      if (team) {
+        await fetch("/api/quiz-game/record", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            teamName: team.name,
+            questionId: data.quizId,
+            timeTaken,
+            isCorrect: validationResult.isCorrect,
+          }),
+        });
+      }
+    } catch (error) {
+      console.error("Error validating answer:", error);
+    }
+  };
 
   const handleSubmit = () => {
-    if (!userAnswer.trim()) return;
+    if (!userAnswer.trim() && !hasAnswered) return;
 
-    // Use the shared validation utility with flexible matching
-    const correct = validateAnswer(
-      userAnswer,
-      [data.correctAnswer],
-      "flexible"
-    );
-    setIsCorrect(correct);
-    setHasAnswered(true);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    validateWithApi(userAnswer);
   };
 
   // Handle moving to the next question
@@ -58,6 +155,8 @@ export function Question({
     setUserAnswer("");
     setHasAnswered(false);
     setShowHint(false);
+    setTimeLeft(QUESTION_TIMER);
+    startTimeRef.current = Date.now();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -73,6 +172,13 @@ export function Question({
           <span className="text-gray-300">
             Question {currentQuestion} of {totalQuestions}
           </span>
+          <span className="text-gray-300">Time left: {timeLeft}s</span>
+        </div>
+        <div className="mb-4">
+          <Progress
+            value={(timeLeft / QUESTION_TIMER) * 100}
+            className="h-2 bg-gray-700 [&>*]:bg-cyan-500"
+          />
         </div>
         <CardTitle className="text-2xl text-cyan-300">
           {data.question}
@@ -121,13 +227,12 @@ export function Question({
             >
               {isCorrect ? "Correct!" : "Incorrect!"}
             </h3>
-            <p className="text-gray-200">
-              The correct answer is:{" "}
-              <span className="text-cyan-300 font-medium">
-                {data.correctAnswer}
-              </span>
-            </p>
-            <p className="text-gray-200 mt-2">{data.explanation}</p>
+            {!isCorrect && correctAnswer && (
+              <p className="text-gray-200 mb-2">
+                Correct answer: {correctAnswer}
+              </p>
+            )}
+            {explanation && <p className="text-gray-200 mt-2">{explanation}</p>}
           </div>
         )}
       </CardContent>

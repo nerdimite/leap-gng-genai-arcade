@@ -1,0 +1,21 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique // Team name as a unique identifier
+  currentLevel String   @default("1") // Track the current level
+  score        Int      @default(0) // Current score
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

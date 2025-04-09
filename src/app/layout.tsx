@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono, VT323 } from "next/font/google";
 import { Header } from "@/components/Header";
+import { TeamProvider } from "@/contexts/TeamContext";
 import "./globals.css";
 import { dark, neobrutalism } from "@clerk/themes";
 
@@ -41,8 +42,10 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${vt323.variable} antialiased bg-black`}
         >
-          <Header />
-          {children}
+          <TeamProvider>
+            <Header />
+            {children}
+          </TeamProvider>
         </body>
       </html>
     </ClerkProvider>

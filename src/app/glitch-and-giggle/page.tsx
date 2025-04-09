@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
 import {
   Card,
   CardContent,
@@ -11,45 +11,60 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { IconLock } from "@tabler/icons-react";
+import { IconLock, IconTrophy } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import { useTeam } from "@/contexts/TeamContext";
 
 export default function GlitchAndGigglePage() {
   const { user } = useUser();
-  const [points, setPoints] = useState(0);
+  const { team, isLoading } = useTeam();
   const router = useRouter();
 
   // Game levels data
-  const levels = [
+  const [levels, setLevels] = useState([
     {
-      id: 1,
+      id: "1",
       title: "Wikipedia Speedrun",
       description: "Click through wikipedia articles to reach the end",
       locked: false,
       link: "/glitch-and-giggle/wikipedia",
     },
     {
-      id: 2,
+      id: "2",
       title: "Neural Blitz",
       description: "Rapid fire questions about AI to put you to the test",
-      locked: false,
+      locked: true,
       link: "/glitch-and-giggle/quiz",
     },
     {
-      id: 3,
+      id: "3",
       title: "Prompt Puzzler",
       description: "Not your ordinary monday crossword",
-      locked: false,
+      locked: true,
       link: "/glitch-and-giggle/crossword",
     },
     {
-      id: 4,
+      id: "4",
       title: "Visual Puzzler",
       description: "Recognize the AI concepts illustrated in the image",
-      locked: false,
+      locked: true,
       link: "/glitch-and-giggle/images",
     },
-  ];
+  ]);
+
+  // Update levels locking based on team's current level
+  useEffect(() => {
+    if (team) {
+      const teamLevel = parseInt(team.currentLevel, 10);
+
+      setLevels((prevLevels) =>
+        prevLevels.map((level) => ({
+          ...level,
+          locked: parseInt(level.id, 10) > teamLevel,
+        }))
+      );
+    }
+  }, [team]);
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -59,16 +74,26 @@ export default function GlitchAndGigglePage() {
           <h2 className="text-xl font-[family-name:var(--font-vt323)]">
             TEAM:{" "}
             <span className="text-yellow-300">
-              {user?.username || user?.firstName || "PLAYER 1"}
+              {team?.name || user?.username || user?.firstName || "PLAYER 1"}
             </span>
           </h2>
         </div>
 
-        <div className="bg-amber-500 p-3 border-4 border-amber-400">
-          <div className="text-xl font-[family-name:var(--font-vt323)] flex items-center">
-            <span className="text-black mr-2">POINTS:</span>
-            <span className="text-black font-bold">{points}</span>
+        <div className="flex gap-4">
+          <div className="bg-amber-500 p-3 border-4 border-amber-400">
+            <div className="text-xl font-[family-name:var(--font-vt323)] flex items-center">
+              <span className="text-black mr-2">POINTS:</span>
+              <span className="text-black font-bold">{team?.score || 0}</span>
+            </div>
           </div>
+
+          <Button
+            onClick={() => router.push("/glitch-and-giggle/leaderboard")}
+            className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold"
+          >
+            <IconTrophy className="h-5 w-5 mr-2" />
+            LEADERBOARD
+          </Button>
         </div>
       </div>
 
@@ -95,16 +120,14 @@ export default function GlitchAndGigglePage() {
         </h1>
       </div>
 
-      <ClerkLoading>
+      {isLoading ? (
         <div className="flex justify-center items-center h-64">
           <p className="text-center text-2xl font-[family-name:var(--font-vt323)] animate-pulse">
             LOADING GAME DATA...
           </p>
         </div>
-      </ClerkLoading>
-
-      <ClerkLoaded>
-        {/* Game Levels Grid */}
+      ) : (
+        /* Game Levels Grid */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {levels.map((level) => (
             <Card
@@ -165,7 +188,19 @@ export default function GlitchAndGigglePage() {
             </Card>
           ))}
         </div>
-      </ClerkLoaded>
+      )}
+
+      {/* Current Level Status */}
+      {team && (
+        <div className="mt-8 p-4 bg-gray-800 border-2 border-cyan-500 rounded-md">
+          <p className="text-cyan-300 font-[family-name:var(--font-vt323)] text-xl">
+            CURRENT PROGRESS: LEVEL {team.currentLevel} UNLOCKED
+          </p>
+          <p className="text-gray-400 mt-2">
+            Complete each level to unlock the next challenge!
+          </p>
+        </div>
+      )}
     </div>
   );
 }

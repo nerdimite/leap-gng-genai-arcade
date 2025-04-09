@@ -3,67 +3,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { RulesCard } from "@/components/RulesCard";
-import { Question, QuestionData } from "@/components/quiz/Question";
+import { Question, ApiQuestionData } from "@/components/quiz/Question";
 import { Result } from "@/components/quiz/Result";
 import { IconArrowLeft } from "@tabler/icons-react";
 
-// Quiz questions
-const quizQuestions: QuestionData[] = [
-  {
-    id: 1,
-    question:
-      "Which AI-powered voice assistant was the first to be introduced to smartphones?",
-    correctAnswer: "Siri",
-    explanation:
-      "Siri was introduced in 2011 with the iPhone 4S, becoming the first major voice assistant on smartphones.",
-    hint: "It was released by Apple in 2011",
-  },
-  {
-    id: 2,
-    question:
-      "What was the first-ever AI-generated painting sold at an auction?",
-    correctAnswer: "Portrait of Edmond de Belamy",
-    explanation:
-      "The 'Portrait of Edmond de Belamy' was sold for $432,500 at Christie's auction in 2018, becoming the first AI-generated artwork sold at a major auction house.",
-    hint: "It was sold for $432,500 at Christie's auction house",
-  },
-  {
-    id: 3,
-    question:
-      "What was the name of the AI model that OpenAI initially decided not to release fully because they thought it was too powerful?",
-    correctAnswer: "GPT-2",
-    explanation:
-      "OpenAI held back the full version of GPT-2 in 2019 due to concerns about potential misuse of the technology.",
-    hint: "It was a predecessor to GPT-3",
-  },
-  {
-    id: 4,
-    question:
-      "What AI-powered software was once trained using Reddit conversations, making it unexpectedly sarcastic and funny?",
-    correctAnswer: "Tay AI",
-    explanation:
-      "Tay AI was an experiment by Microsoft, but it had to be shut down within a day because it started generating offensive content after learning from some users' inputs.",
-    hint: "It was a Microsoft chatbot",
-  },
-  {
-    id: 5,
-    question:
-      "Which AI-generated song featuring which two artists went viral—despite neither of them actually recording it?",
-    correctAnswer: "Heart on My Sleeve",
-    explanation:
-      "'Heart on My Sleeve' was created by an anonymous AI artist and featured AI-generated vocals mimicking Drake and The Weeknd. It got millions of plays before being removed from streaming platforms!",
-    hint: "It featured AI-generated vocals of Drake and The Weeknd",
-  },
-];
-
-// Game rules for AI Trivia Challenge
+// Updated game rules for AI Trivia Challenge
 const gameRules = [
   "You will be presented with 5 challenging questions about AI history and technology.",
-  "Choose the correct answer from the multiple-choice options.",
+  "You have 10 seconds to answer each question.",
+  "Type your answer in the input field and submit.",
+  "If you don't answer in time, the question will be marked as incorrect.",
   "Each correct answer earns you points.",
-  "Try to answer all questions correctly to achieve the highest score.",
-  "At the end, you'll see your final score and how you compare to others.",
-  "Pay attention to specific dates and names mentioned in the questions.",
+  "Try to answer all questions correctly to achieve the highest score!",
 ];
 
 // Game states
@@ -71,33 +22,82 @@ type GameState = "rules" | "playing" | "results";
 
 export default function QuizPage() {
   const [gameState, setGameState] = useState<GameState>("rules");
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionId, setCurrentQuestionId] = useState("");
+  const [currentQuestion, setCurrentQuestion] =
+    useState<ApiQuestionData | null>(null);
+  const [questionNumber, setQuestionNumber] = useState(1);
+  const [totalQuestions, setTotalQuestions] = useState(5);
   const [score, setScore] = useState(0);
   const router = useRouter();
 
+  // Load the first question when the game starts
+  const loadFirstQuestion = async () => {
+    try {
+      const response = await fetch("/api/quiz-game/validate");
+      const data = await response.json();
+
+      if (data.quizId) {
+        setCurrentQuestionId(data.quizId);
+        setCurrentQuestion(data);
+        setQuestionNumber(1);
+        // Count total questions by checking how many are in our API
+        const allQuizzesResponse = await fetch("/api/quiz-game/validate");
+        const allQuizzesData = await allQuizzesResponse.json();
+        if (allQuizzesData.order && allQuizzesData.isFinal) {
+          setTotalQuestions(allQuizzesData.order);
+        }
+      } else {
+        console.error("No quiz data returned from API");
+      }
+    } catch (error) {
+      console.error("Error loading first question:", error);
+    }
+  };
+
+  // Load the next question
+  const loadNextQuestion = async () => {
+    if (!currentQuestionId) return;
+
+    try {
+      const response = await fetch(
+        `/api/quiz-game/validate?getNextQuiz=${currentQuestionId}`
+      );
+      const data = await response.json();
+
+      if (data.noMoreQuizzes) {
+        // No more questions, show results
+        setGameState("results");
+      } else if (data.quizId) {
+        setCurrentQuestionId(data.quizId);
+        setCurrentQuestion(data);
+        setQuestionNumber((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.error("Error loading next question:", error);
+      // Switch to results if we can't load the next question
+      setGameState("results");
+    }
+  };
+
   const handleStartGame = () => {
     setGameState("playing");
-    setCurrentQuestionIndex(0);
     setScore(0);
+    loadFirstQuestion();
   };
 
   const handleAnswer = (isCorrect: boolean) => {
     if (isCorrect) {
       setScore((prev) => prev + 1);
     }
-
-    // Move to next question or results
-    if (currentQuestionIndex < quizQuestions.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-    } else {
-      setGameState("results");
-    }
+    loadNextQuestion();
   };
 
   const handleRestart = () => {
     setGameState("rules");
-    setCurrentQuestionIndex(0);
     setScore(0);
+    setCurrentQuestionId("");
+    setCurrentQuestion(null);
+    setQuestionNumber(1);
   };
 
   const handleBackToMenu = () => {
@@ -123,19 +123,19 @@ export default function QuizPage() {
         />
       )}
 
-      {gameState === "playing" && (
+      {gameState === "playing" && currentQuestion && (
         <Question
-          data={quizQuestions[currentQuestionIndex]}
+          data={currentQuestion}
           onAnswer={handleAnswer}
-          currentQuestion={currentQuestionIndex + 1}
-          totalQuestions={quizQuestions.length}
+          currentQuestion={questionNumber}
+          totalQuestions={totalQuestions}
         />
       )}
 
       {gameState === "results" && (
         <Result
           score={score}
-          totalQuestions={quizQuestions.length}
+          totalQuestions={totalQuestions}
           onRestart={handleRestart}
         />
       )}
