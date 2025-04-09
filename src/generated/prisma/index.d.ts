@@ -28,6 +28,16 @@ export type WikipediaGameState = $Result.DefaultSelection<Prisma.$WikipediaGameS
  * 
  */
 export type QuizGameState = $Result.DefaultSelection<Prisma.$QuizGameStatePayload>
+/**
+ * Model CrosswordGameState
+ * 
+ */
+export type CrosswordGameState = $Result.DefaultSelection<Prisma.$CrosswordGameStatePayload>
+/**
+ * Model ImageQuizGameState
+ * 
+ */
+export type ImageQuizGameState = $Result.DefaultSelection<Prisma.$ImageQuizGameStatePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -183,6 +193,26 @@ export class PrismaClient<
     * ```
     */
   get quizGameState(): Prisma.QuizGameStateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.crosswordGameState`: Exposes CRUD operations for the **CrosswordGameState** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CrosswordGameStates
+    * const crosswordGameStates = await prisma.crosswordGameState.findMany()
+    * ```
+    */
+  get crosswordGameState(): Prisma.CrosswordGameStateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.imageQuizGameState`: Exposes CRUD operations for the **ImageQuizGameState** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ImageQuizGameStates
+    * const imageQuizGameStates = await prisma.imageQuizGameState.findMany()
+    * ```
+    */
+  get imageQuizGameState(): Prisma.ImageQuizGameStateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -625,7 +655,9 @@ export namespace Prisma {
   export const ModelName: {
     Team: 'Team',
     WikipediaGameState: 'WikipediaGameState',
-    QuizGameState: 'QuizGameState'
+    QuizGameState: 'QuizGameState',
+    CrosswordGameState: 'CrosswordGameState',
+    ImageQuizGameState: 'ImageQuizGameState'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "team" | "wikipediaGameState" | "quizGameState"
+      modelProps: "team" | "wikipediaGameState" | "quizGameState" | "crosswordGameState" | "imageQuizGameState"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -870,6 +902,154 @@ export namespace Prisma {
           }
         }
       }
+      CrosswordGameState: {
+        payload: Prisma.$CrosswordGameStatePayload<ExtArgs>
+        fields: Prisma.CrosswordGameStateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CrosswordGameStateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CrosswordGameStateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>
+          }
+          findFirst: {
+            args: Prisma.CrosswordGameStateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CrosswordGameStateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>
+          }
+          findMany: {
+            args: Prisma.CrosswordGameStateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>[]
+          }
+          create: {
+            args: Prisma.CrosswordGameStateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>
+          }
+          createMany: {
+            args: Prisma.CrosswordGameStateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CrosswordGameStateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>[]
+          }
+          delete: {
+            args: Prisma.CrosswordGameStateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>
+          }
+          update: {
+            args: Prisma.CrosswordGameStateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>
+          }
+          deleteMany: {
+            args: Prisma.CrosswordGameStateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CrosswordGameStateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CrosswordGameStateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>[]
+          }
+          upsert: {
+            args: Prisma.CrosswordGameStateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrosswordGameStatePayload>
+          }
+          aggregate: {
+            args: Prisma.CrosswordGameStateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCrosswordGameState>
+          }
+          groupBy: {
+            args: Prisma.CrosswordGameStateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CrosswordGameStateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CrosswordGameStateCountArgs<ExtArgs>
+            result: $Utils.Optional<CrosswordGameStateCountAggregateOutputType> | number
+          }
+        }
+      }
+      ImageQuizGameState: {
+        payload: Prisma.$ImageQuizGameStatePayload<ExtArgs>
+        fields: Prisma.ImageQuizGameStateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ImageQuizGameStateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ImageQuizGameStateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>
+          }
+          findFirst: {
+            args: Prisma.ImageQuizGameStateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ImageQuizGameStateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>
+          }
+          findMany: {
+            args: Prisma.ImageQuizGameStateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>[]
+          }
+          create: {
+            args: Prisma.ImageQuizGameStateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>
+          }
+          createMany: {
+            args: Prisma.ImageQuizGameStateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ImageQuizGameStateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>[]
+          }
+          delete: {
+            args: Prisma.ImageQuizGameStateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>
+          }
+          update: {
+            args: Prisma.ImageQuizGameStateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>
+          }
+          deleteMany: {
+            args: Prisma.ImageQuizGameStateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ImageQuizGameStateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ImageQuizGameStateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>[]
+          }
+          upsert: {
+            args: Prisma.ImageQuizGameStateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImageQuizGameStatePayload>
+          }
+          aggregate: {
+            args: Prisma.ImageQuizGameStateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImageQuizGameState>
+          }
+          groupBy: {
+            args: Prisma.ImageQuizGameStateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImageQuizGameStateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ImageQuizGameStateCountArgs<ExtArgs>
+            result: $Utils.Optional<ImageQuizGameStateCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -957,6 +1137,8 @@ export namespace Prisma {
     team?: TeamOmit
     wikipediaGameState?: WikipediaGameStateOmit
     quizGameState?: QuizGameStateOmit
+    crosswordGameState?: CrosswordGameStateOmit
+    imageQuizGameState?: ImageQuizGameStateOmit
   }
 
   /* Types for Logging */
@@ -1053,11 +1235,15 @@ export namespace Prisma {
   export type TeamCountOutputType = {
     wikipediaGames: number
     quizGames: number
+    crosswordGames: number
+    imageQuizGames: number
   }
 
   export type TeamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     wikipediaGames?: boolean | TeamCountOutputTypeCountWikipediaGamesArgs
     quizGames?: boolean | TeamCountOutputTypeCountQuizGamesArgs
+    crosswordGames?: boolean | TeamCountOutputTypeCountCrosswordGamesArgs
+    imageQuizGames?: boolean | TeamCountOutputTypeCountImageQuizGamesArgs
   }
 
   // Custom InputTypes
@@ -1083,6 +1269,20 @@ export namespace Prisma {
    */
   export type TeamCountOutputTypeCountQuizGamesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QuizGameStateWhereInput
+  }
+
+  /**
+   * TeamCountOutputType without action
+   */
+  export type TeamCountOutputTypeCountCrosswordGamesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrosswordGameStateWhereInput
+  }
+
+  /**
+   * TeamCountOutputType without action
+   */
+  export type TeamCountOutputTypeCountImageQuizGamesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImageQuizGameStateWhereInput
   }
 
 
@@ -1302,6 +1502,8 @@ export namespace Prisma {
     updatedAt?: boolean
     wikipediaGames?: boolean | Team$wikipediaGamesArgs<ExtArgs>
     quizGames?: boolean | Team$quizGamesArgs<ExtArgs>
+    crosswordGames?: boolean | Team$crosswordGamesArgs<ExtArgs>
+    imageQuizGames?: boolean | Team$imageQuizGamesArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
@@ -1336,6 +1538,8 @@ export namespace Prisma {
   export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     wikipediaGames?: boolean | Team$wikipediaGamesArgs<ExtArgs>
     quizGames?: boolean | Team$quizGamesArgs<ExtArgs>
+    crosswordGames?: boolean | Team$crosswordGamesArgs<ExtArgs>
+    imageQuizGames?: boolean | Team$imageQuizGamesArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TeamIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1346,6 +1550,8 @@ export namespace Prisma {
     objects: {
       wikipediaGames: Prisma.$WikipediaGameStatePayload<ExtArgs>[]
       quizGames: Prisma.$QuizGameStatePayload<ExtArgs>[]
+      crosswordGames: Prisma.$CrosswordGameStatePayload<ExtArgs>[]
+      imageQuizGames: Prisma.$ImageQuizGameStatePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1750,6 +1956,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     wikipediaGames<T extends Team$wikipediaGamesArgs<ExtArgs> = {}>(args?: Subset<T, Team$wikipediaGamesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WikipediaGameStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     quizGames<T extends Team$quizGamesArgs<ExtArgs> = {}>(args?: Subset<T, Team$quizGamesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizGameStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    crosswordGames<T extends Team$crosswordGamesArgs<ExtArgs> = {}>(args?: Subset<T, Team$crosswordGamesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    imageQuizGames<T extends Team$imageQuizGamesArgs<ExtArgs> = {}>(args?: Subset<T, Team$imageQuizGamesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2216,6 +2424,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: QuizGameStateScalarFieldEnum | QuizGameStateScalarFieldEnum[]
+  }
+
+  /**
+   * Team.crosswordGames
+   */
+  export type Team$crosswordGamesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    where?: CrosswordGameStateWhereInput
+    orderBy?: CrosswordGameStateOrderByWithRelationInput | CrosswordGameStateOrderByWithRelationInput[]
+    cursor?: CrosswordGameStateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CrosswordGameStateScalarFieldEnum | CrosswordGameStateScalarFieldEnum[]
+  }
+
+  /**
+   * Team.imageQuizGames
+   */
+  export type Team$imageQuizGamesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    where?: ImageQuizGameStateWhereInput
+    orderBy?: ImageQuizGameStateOrderByWithRelationInput | ImageQuizGameStateOrderByWithRelationInput[]
+    cursor?: ImageQuizGameStateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImageQuizGameStateScalarFieldEnum | ImageQuizGameStateScalarFieldEnum[]
   }
 
   /**
@@ -4508,6 +4764,2259 @@ export namespace Prisma {
 
 
   /**
+   * Model CrosswordGameState
+   */
+
+  export type AggregateCrosswordGameState = {
+    _count: CrosswordGameStateCountAggregateOutputType | null
+    _avg: CrosswordGameStateAvgAggregateOutputType | null
+    _sum: CrosswordGameStateSumAggregateOutputType | null
+    _min: CrosswordGameStateMinAggregateOutputType | null
+    _max: CrosswordGameStateMaxAggregateOutputType | null
+  }
+
+  export type CrosswordGameStateAvgAggregateOutputType = {
+    id: number | null
+    timeTaken: number | null
+  }
+
+  export type CrosswordGameStateSumAggregateOutputType = {
+    id: number | null
+    timeTaken: number | null
+  }
+
+  export type CrosswordGameStateMinAggregateOutputType = {
+    id: number | null
+    teamName: string | null
+    timeTaken: number | null
+    completed: boolean | null
+    isCorrect: boolean | null
+    startedAt: Date | null
+    completedAt: Date | null
+  }
+
+  export type CrosswordGameStateMaxAggregateOutputType = {
+    id: number | null
+    teamName: string | null
+    timeTaken: number | null
+    completed: boolean | null
+    isCorrect: boolean | null
+    startedAt: Date | null
+    completedAt: Date | null
+  }
+
+  export type CrosswordGameStateCountAggregateOutputType = {
+    id: number
+    teamName: number
+    timeTaken: number
+    completed: number
+    isCorrect: number
+    startedAt: number
+    completedAt: number
+    _all: number
+  }
+
+
+  export type CrosswordGameStateAvgAggregateInputType = {
+    id?: true
+    timeTaken?: true
+  }
+
+  export type CrosswordGameStateSumAggregateInputType = {
+    id?: true
+    timeTaken?: true
+  }
+
+  export type CrosswordGameStateMinAggregateInputType = {
+    id?: true
+    teamName?: true
+    timeTaken?: true
+    completed?: true
+    isCorrect?: true
+    startedAt?: true
+    completedAt?: true
+  }
+
+  export type CrosswordGameStateMaxAggregateInputType = {
+    id?: true
+    teamName?: true
+    timeTaken?: true
+    completed?: true
+    isCorrect?: true
+    startedAt?: true
+    completedAt?: true
+  }
+
+  export type CrosswordGameStateCountAggregateInputType = {
+    id?: true
+    teamName?: true
+    timeTaken?: true
+    completed?: true
+    isCorrect?: true
+    startedAt?: true
+    completedAt?: true
+    _all?: true
+  }
+
+  export type CrosswordGameStateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CrosswordGameState to aggregate.
+     */
+    where?: CrosswordGameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrosswordGameStates to fetch.
+     */
+    orderBy?: CrosswordGameStateOrderByWithRelationInput | CrosswordGameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CrosswordGameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrosswordGameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrosswordGameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CrosswordGameStates
+    **/
+    _count?: true | CrosswordGameStateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CrosswordGameStateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CrosswordGameStateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CrosswordGameStateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CrosswordGameStateMaxAggregateInputType
+  }
+
+  export type GetCrosswordGameStateAggregateType<T extends CrosswordGameStateAggregateArgs> = {
+        [P in keyof T & keyof AggregateCrosswordGameState]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCrosswordGameState[P]>
+      : GetScalarType<T[P], AggregateCrosswordGameState[P]>
+  }
+
+
+
+
+  export type CrosswordGameStateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrosswordGameStateWhereInput
+    orderBy?: CrosswordGameStateOrderByWithAggregationInput | CrosswordGameStateOrderByWithAggregationInput[]
+    by: CrosswordGameStateScalarFieldEnum[] | CrosswordGameStateScalarFieldEnum
+    having?: CrosswordGameStateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CrosswordGameStateCountAggregateInputType | true
+    _avg?: CrosswordGameStateAvgAggregateInputType
+    _sum?: CrosswordGameStateSumAggregateInputType
+    _min?: CrosswordGameStateMinAggregateInputType
+    _max?: CrosswordGameStateMaxAggregateInputType
+  }
+
+  export type CrosswordGameStateGroupByOutputType = {
+    id: number
+    teamName: string
+    timeTaken: number
+    completed: boolean
+    isCorrect: boolean
+    startedAt: Date
+    completedAt: Date | null
+    _count: CrosswordGameStateCountAggregateOutputType | null
+    _avg: CrosswordGameStateAvgAggregateOutputType | null
+    _sum: CrosswordGameStateSumAggregateOutputType | null
+    _min: CrosswordGameStateMinAggregateOutputType | null
+    _max: CrosswordGameStateMaxAggregateOutputType | null
+  }
+
+  type GetCrosswordGameStateGroupByPayload<T extends CrosswordGameStateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CrosswordGameStateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CrosswordGameStateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CrosswordGameStateGroupByOutputType[P]>
+            : GetScalarType<T[P], CrosswordGameStateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CrosswordGameStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamName?: boolean
+    timeTaken?: boolean
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crosswordGameState"]>
+
+  export type CrosswordGameStateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamName?: boolean
+    timeTaken?: boolean
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crosswordGameState"]>
+
+  export type CrosswordGameStateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamName?: boolean
+    timeTaken?: boolean
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crosswordGameState"]>
+
+  export type CrosswordGameStateSelectScalar = {
+    id?: boolean
+    teamName?: boolean
+    timeTaken?: boolean
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+  }
+
+  export type CrosswordGameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "teamName" | "timeTaken" | "completed" | "isCorrect" | "startedAt" | "completedAt", ExtArgs["result"]["crosswordGameState"]>
+  export type CrosswordGameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+  export type CrosswordGameStateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+  export type CrosswordGameStateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+
+  export type $CrosswordGameStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CrosswordGameState"
+    objects: {
+      team: Prisma.$TeamPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      teamName: string
+      timeTaken: number
+      completed: boolean
+      isCorrect: boolean
+      startedAt: Date
+      completedAt: Date | null
+    }, ExtArgs["result"]["crosswordGameState"]>
+    composites: {}
+  }
+
+  type CrosswordGameStateGetPayload<S extends boolean | null | undefined | CrosswordGameStateDefaultArgs> = $Result.GetResult<Prisma.$CrosswordGameStatePayload, S>
+
+  type CrosswordGameStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CrosswordGameStateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CrosswordGameStateCountAggregateInputType | true
+    }
+
+  export interface CrosswordGameStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CrosswordGameState'], meta: { name: 'CrosswordGameState' } }
+    /**
+     * Find zero or one CrosswordGameState that matches the filter.
+     * @param {CrosswordGameStateFindUniqueArgs} args - Arguments to find a CrosswordGameState
+     * @example
+     * // Get one CrosswordGameState
+     * const crosswordGameState = await prisma.crosswordGameState.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CrosswordGameStateFindUniqueArgs>(args: SelectSubset<T, CrosswordGameStateFindUniqueArgs<ExtArgs>>): Prisma__CrosswordGameStateClient<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CrosswordGameState that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CrosswordGameStateFindUniqueOrThrowArgs} args - Arguments to find a CrosswordGameState
+     * @example
+     * // Get one CrosswordGameState
+     * const crosswordGameState = await prisma.crosswordGameState.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CrosswordGameStateFindUniqueOrThrowArgs>(args: SelectSubset<T, CrosswordGameStateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CrosswordGameStateClient<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CrosswordGameState that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrosswordGameStateFindFirstArgs} args - Arguments to find a CrosswordGameState
+     * @example
+     * // Get one CrosswordGameState
+     * const crosswordGameState = await prisma.crosswordGameState.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CrosswordGameStateFindFirstArgs>(args?: SelectSubset<T, CrosswordGameStateFindFirstArgs<ExtArgs>>): Prisma__CrosswordGameStateClient<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CrosswordGameState that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrosswordGameStateFindFirstOrThrowArgs} args - Arguments to find a CrosswordGameState
+     * @example
+     * // Get one CrosswordGameState
+     * const crosswordGameState = await prisma.crosswordGameState.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CrosswordGameStateFindFirstOrThrowArgs>(args?: SelectSubset<T, CrosswordGameStateFindFirstOrThrowArgs<ExtArgs>>): Prisma__CrosswordGameStateClient<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CrosswordGameStates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrosswordGameStateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CrosswordGameStates
+     * const crosswordGameStates = await prisma.crosswordGameState.findMany()
+     * 
+     * // Get first 10 CrosswordGameStates
+     * const crosswordGameStates = await prisma.crosswordGameState.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const crosswordGameStateWithIdOnly = await prisma.crosswordGameState.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CrosswordGameStateFindManyArgs>(args?: SelectSubset<T, CrosswordGameStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CrosswordGameState.
+     * @param {CrosswordGameStateCreateArgs} args - Arguments to create a CrosswordGameState.
+     * @example
+     * // Create one CrosswordGameState
+     * const CrosswordGameState = await prisma.crosswordGameState.create({
+     *   data: {
+     *     // ... data to create a CrosswordGameState
+     *   }
+     * })
+     * 
+     */
+    create<T extends CrosswordGameStateCreateArgs>(args: SelectSubset<T, CrosswordGameStateCreateArgs<ExtArgs>>): Prisma__CrosswordGameStateClient<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CrosswordGameStates.
+     * @param {CrosswordGameStateCreateManyArgs} args - Arguments to create many CrosswordGameStates.
+     * @example
+     * // Create many CrosswordGameStates
+     * const crosswordGameState = await prisma.crosswordGameState.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CrosswordGameStateCreateManyArgs>(args?: SelectSubset<T, CrosswordGameStateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CrosswordGameStates and returns the data saved in the database.
+     * @param {CrosswordGameStateCreateManyAndReturnArgs} args - Arguments to create many CrosswordGameStates.
+     * @example
+     * // Create many CrosswordGameStates
+     * const crosswordGameState = await prisma.crosswordGameState.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CrosswordGameStates and only return the `id`
+     * const crosswordGameStateWithIdOnly = await prisma.crosswordGameState.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CrosswordGameStateCreateManyAndReturnArgs>(args?: SelectSubset<T, CrosswordGameStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CrosswordGameState.
+     * @param {CrosswordGameStateDeleteArgs} args - Arguments to delete one CrosswordGameState.
+     * @example
+     * // Delete one CrosswordGameState
+     * const CrosswordGameState = await prisma.crosswordGameState.delete({
+     *   where: {
+     *     // ... filter to delete one CrosswordGameState
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CrosswordGameStateDeleteArgs>(args: SelectSubset<T, CrosswordGameStateDeleteArgs<ExtArgs>>): Prisma__CrosswordGameStateClient<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CrosswordGameState.
+     * @param {CrosswordGameStateUpdateArgs} args - Arguments to update one CrosswordGameState.
+     * @example
+     * // Update one CrosswordGameState
+     * const crosswordGameState = await prisma.crosswordGameState.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CrosswordGameStateUpdateArgs>(args: SelectSubset<T, CrosswordGameStateUpdateArgs<ExtArgs>>): Prisma__CrosswordGameStateClient<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CrosswordGameStates.
+     * @param {CrosswordGameStateDeleteManyArgs} args - Arguments to filter CrosswordGameStates to delete.
+     * @example
+     * // Delete a few CrosswordGameStates
+     * const { count } = await prisma.crosswordGameState.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CrosswordGameStateDeleteManyArgs>(args?: SelectSubset<T, CrosswordGameStateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CrosswordGameStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrosswordGameStateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CrosswordGameStates
+     * const crosswordGameState = await prisma.crosswordGameState.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CrosswordGameStateUpdateManyArgs>(args: SelectSubset<T, CrosswordGameStateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CrosswordGameStates and returns the data updated in the database.
+     * @param {CrosswordGameStateUpdateManyAndReturnArgs} args - Arguments to update many CrosswordGameStates.
+     * @example
+     * // Update many CrosswordGameStates
+     * const crosswordGameState = await prisma.crosswordGameState.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CrosswordGameStates and only return the `id`
+     * const crosswordGameStateWithIdOnly = await prisma.crosswordGameState.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CrosswordGameStateUpdateManyAndReturnArgs>(args: SelectSubset<T, CrosswordGameStateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CrosswordGameState.
+     * @param {CrosswordGameStateUpsertArgs} args - Arguments to update or create a CrosswordGameState.
+     * @example
+     * // Update or create a CrosswordGameState
+     * const crosswordGameState = await prisma.crosswordGameState.upsert({
+     *   create: {
+     *     // ... data to create a CrosswordGameState
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CrosswordGameState we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CrosswordGameStateUpsertArgs>(args: SelectSubset<T, CrosswordGameStateUpsertArgs<ExtArgs>>): Prisma__CrosswordGameStateClient<$Result.GetResult<Prisma.$CrosswordGameStatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CrosswordGameStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrosswordGameStateCountArgs} args - Arguments to filter CrosswordGameStates to count.
+     * @example
+     * // Count the number of CrosswordGameStates
+     * const count = await prisma.crosswordGameState.count({
+     *   where: {
+     *     // ... the filter for the CrosswordGameStates we want to count
+     *   }
+     * })
+    **/
+    count<T extends CrosswordGameStateCountArgs>(
+      args?: Subset<T, CrosswordGameStateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CrosswordGameStateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CrosswordGameState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrosswordGameStateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CrosswordGameStateAggregateArgs>(args: Subset<T, CrosswordGameStateAggregateArgs>): Prisma.PrismaPromise<GetCrosswordGameStateAggregateType<T>>
+
+    /**
+     * Group by CrosswordGameState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrosswordGameStateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CrosswordGameStateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CrosswordGameStateGroupByArgs['orderBy'] }
+        : { orderBy?: CrosswordGameStateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CrosswordGameStateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCrosswordGameStateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CrosswordGameState model
+   */
+  readonly fields: CrosswordGameStateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CrosswordGameState.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CrosswordGameStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    team<T extends TeamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TeamDefaultArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CrosswordGameState model
+   */
+  interface CrosswordGameStateFieldRefs {
+    readonly id: FieldRef<"CrosswordGameState", 'Int'>
+    readonly teamName: FieldRef<"CrosswordGameState", 'String'>
+    readonly timeTaken: FieldRef<"CrosswordGameState", 'Int'>
+    readonly completed: FieldRef<"CrosswordGameState", 'Boolean'>
+    readonly isCorrect: FieldRef<"CrosswordGameState", 'Boolean'>
+    readonly startedAt: FieldRef<"CrosswordGameState", 'DateTime'>
+    readonly completedAt: FieldRef<"CrosswordGameState", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CrosswordGameState findUnique
+   */
+  export type CrosswordGameStateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which CrosswordGameState to fetch.
+     */
+    where: CrosswordGameStateWhereUniqueInput
+  }
+
+  /**
+   * CrosswordGameState findUniqueOrThrow
+   */
+  export type CrosswordGameStateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which CrosswordGameState to fetch.
+     */
+    where: CrosswordGameStateWhereUniqueInput
+  }
+
+  /**
+   * CrosswordGameState findFirst
+   */
+  export type CrosswordGameStateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which CrosswordGameState to fetch.
+     */
+    where?: CrosswordGameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrosswordGameStates to fetch.
+     */
+    orderBy?: CrosswordGameStateOrderByWithRelationInput | CrosswordGameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CrosswordGameStates.
+     */
+    cursor?: CrosswordGameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrosswordGameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrosswordGameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CrosswordGameStates.
+     */
+    distinct?: CrosswordGameStateScalarFieldEnum | CrosswordGameStateScalarFieldEnum[]
+  }
+
+  /**
+   * CrosswordGameState findFirstOrThrow
+   */
+  export type CrosswordGameStateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which CrosswordGameState to fetch.
+     */
+    where?: CrosswordGameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrosswordGameStates to fetch.
+     */
+    orderBy?: CrosswordGameStateOrderByWithRelationInput | CrosswordGameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CrosswordGameStates.
+     */
+    cursor?: CrosswordGameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrosswordGameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrosswordGameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CrosswordGameStates.
+     */
+    distinct?: CrosswordGameStateScalarFieldEnum | CrosswordGameStateScalarFieldEnum[]
+  }
+
+  /**
+   * CrosswordGameState findMany
+   */
+  export type CrosswordGameStateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which CrosswordGameStates to fetch.
+     */
+    where?: CrosswordGameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrosswordGameStates to fetch.
+     */
+    orderBy?: CrosswordGameStateOrderByWithRelationInput | CrosswordGameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CrosswordGameStates.
+     */
+    cursor?: CrosswordGameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrosswordGameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrosswordGameStates.
+     */
+    skip?: number
+    distinct?: CrosswordGameStateScalarFieldEnum | CrosswordGameStateScalarFieldEnum[]
+  }
+
+  /**
+   * CrosswordGameState create
+   */
+  export type CrosswordGameStateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CrosswordGameState.
+     */
+    data: XOR<CrosswordGameStateCreateInput, CrosswordGameStateUncheckedCreateInput>
+  }
+
+  /**
+   * CrosswordGameState createMany
+   */
+  export type CrosswordGameStateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CrosswordGameStates.
+     */
+    data: CrosswordGameStateCreateManyInput | CrosswordGameStateCreateManyInput[]
+  }
+
+  /**
+   * CrosswordGameState createManyAndReturn
+   */
+  export type CrosswordGameStateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * The data used to create many CrosswordGameStates.
+     */
+    data: CrosswordGameStateCreateManyInput | CrosswordGameStateCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CrosswordGameState update
+   */
+  export type CrosswordGameStateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CrosswordGameState.
+     */
+    data: XOR<CrosswordGameStateUpdateInput, CrosswordGameStateUncheckedUpdateInput>
+    /**
+     * Choose, which CrosswordGameState to update.
+     */
+    where: CrosswordGameStateWhereUniqueInput
+  }
+
+  /**
+   * CrosswordGameState updateMany
+   */
+  export type CrosswordGameStateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CrosswordGameStates.
+     */
+    data: XOR<CrosswordGameStateUpdateManyMutationInput, CrosswordGameStateUncheckedUpdateManyInput>
+    /**
+     * Filter which CrosswordGameStates to update
+     */
+    where?: CrosswordGameStateWhereInput
+    /**
+     * Limit how many CrosswordGameStates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CrosswordGameState updateManyAndReturn
+   */
+  export type CrosswordGameStateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * The data used to update CrosswordGameStates.
+     */
+    data: XOR<CrosswordGameStateUpdateManyMutationInput, CrosswordGameStateUncheckedUpdateManyInput>
+    /**
+     * Filter which CrosswordGameStates to update
+     */
+    where?: CrosswordGameStateWhereInput
+    /**
+     * Limit how many CrosswordGameStates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CrosswordGameState upsert
+   */
+  export type CrosswordGameStateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CrosswordGameState to update in case it exists.
+     */
+    where: CrosswordGameStateWhereUniqueInput
+    /**
+     * In case the CrosswordGameState found by the `where` argument doesn't exist, create a new CrosswordGameState with this data.
+     */
+    create: XOR<CrosswordGameStateCreateInput, CrosswordGameStateUncheckedCreateInput>
+    /**
+     * In case the CrosswordGameState was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CrosswordGameStateUpdateInput, CrosswordGameStateUncheckedUpdateInput>
+  }
+
+  /**
+   * CrosswordGameState delete
+   */
+  export type CrosswordGameStateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+    /**
+     * Filter which CrosswordGameState to delete.
+     */
+    where: CrosswordGameStateWhereUniqueInput
+  }
+
+  /**
+   * CrosswordGameState deleteMany
+   */
+  export type CrosswordGameStateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CrosswordGameStates to delete
+     */
+    where?: CrosswordGameStateWhereInput
+    /**
+     * Limit how many CrosswordGameStates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CrosswordGameState without action
+   */
+  export type CrosswordGameStateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrosswordGameState
+     */
+    select?: CrosswordGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrosswordGameState
+     */
+    omit?: CrosswordGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrosswordGameStateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ImageQuizGameState
+   */
+
+  export type AggregateImageQuizGameState = {
+    _count: ImageQuizGameStateCountAggregateOutputType | null
+    _avg: ImageQuizGameStateAvgAggregateOutputType | null
+    _sum: ImageQuizGameStateSumAggregateOutputType | null
+    _min: ImageQuizGameStateMinAggregateOutputType | null
+    _max: ImageQuizGameStateMaxAggregateOutputType | null
+  }
+
+  export type ImageQuizGameStateAvgAggregateOutputType = {
+    id: number | null
+    timeTaken: number | null
+  }
+
+  export type ImageQuizGameStateSumAggregateOutputType = {
+    id: number | null
+    timeTaken: number | null
+  }
+
+  export type ImageQuizGameStateMinAggregateOutputType = {
+    id: number | null
+    teamName: string | null
+    imageId: string | null
+    timeTaken: number | null
+    completed: boolean | null
+    isCorrect: boolean | null
+    startedAt: Date | null
+    completedAt: Date | null
+  }
+
+  export type ImageQuizGameStateMaxAggregateOutputType = {
+    id: number | null
+    teamName: string | null
+    imageId: string | null
+    timeTaken: number | null
+    completed: boolean | null
+    isCorrect: boolean | null
+    startedAt: Date | null
+    completedAt: Date | null
+  }
+
+  export type ImageQuizGameStateCountAggregateOutputType = {
+    id: number
+    teamName: number
+    imageId: number
+    timeTaken: number
+    completed: number
+    isCorrect: number
+    startedAt: number
+    completedAt: number
+    _all: number
+  }
+
+
+  export type ImageQuizGameStateAvgAggregateInputType = {
+    id?: true
+    timeTaken?: true
+  }
+
+  export type ImageQuizGameStateSumAggregateInputType = {
+    id?: true
+    timeTaken?: true
+  }
+
+  export type ImageQuizGameStateMinAggregateInputType = {
+    id?: true
+    teamName?: true
+    imageId?: true
+    timeTaken?: true
+    completed?: true
+    isCorrect?: true
+    startedAt?: true
+    completedAt?: true
+  }
+
+  export type ImageQuizGameStateMaxAggregateInputType = {
+    id?: true
+    teamName?: true
+    imageId?: true
+    timeTaken?: true
+    completed?: true
+    isCorrect?: true
+    startedAt?: true
+    completedAt?: true
+  }
+
+  export type ImageQuizGameStateCountAggregateInputType = {
+    id?: true
+    teamName?: true
+    imageId?: true
+    timeTaken?: true
+    completed?: true
+    isCorrect?: true
+    startedAt?: true
+    completedAt?: true
+    _all?: true
+  }
+
+  export type ImageQuizGameStateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ImageQuizGameState to aggregate.
+     */
+    where?: ImageQuizGameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImageQuizGameStates to fetch.
+     */
+    orderBy?: ImageQuizGameStateOrderByWithRelationInput | ImageQuizGameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ImageQuizGameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImageQuizGameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImageQuizGameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ImageQuizGameStates
+    **/
+    _count?: true | ImageQuizGameStateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ImageQuizGameStateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ImageQuizGameStateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImageQuizGameStateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImageQuizGameStateMaxAggregateInputType
+  }
+
+  export type GetImageQuizGameStateAggregateType<T extends ImageQuizGameStateAggregateArgs> = {
+        [P in keyof T & keyof AggregateImageQuizGameState]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImageQuizGameState[P]>
+      : GetScalarType<T[P], AggregateImageQuizGameState[P]>
+  }
+
+
+
+
+  export type ImageQuizGameStateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImageQuizGameStateWhereInput
+    orderBy?: ImageQuizGameStateOrderByWithAggregationInput | ImageQuizGameStateOrderByWithAggregationInput[]
+    by: ImageQuizGameStateScalarFieldEnum[] | ImageQuizGameStateScalarFieldEnum
+    having?: ImageQuizGameStateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImageQuizGameStateCountAggregateInputType | true
+    _avg?: ImageQuizGameStateAvgAggregateInputType
+    _sum?: ImageQuizGameStateSumAggregateInputType
+    _min?: ImageQuizGameStateMinAggregateInputType
+    _max?: ImageQuizGameStateMaxAggregateInputType
+  }
+
+  export type ImageQuizGameStateGroupByOutputType = {
+    id: number
+    teamName: string
+    imageId: string
+    timeTaken: number
+    completed: boolean
+    isCorrect: boolean
+    startedAt: Date
+    completedAt: Date | null
+    _count: ImageQuizGameStateCountAggregateOutputType | null
+    _avg: ImageQuizGameStateAvgAggregateOutputType | null
+    _sum: ImageQuizGameStateSumAggregateOutputType | null
+    _min: ImageQuizGameStateMinAggregateOutputType | null
+    _max: ImageQuizGameStateMaxAggregateOutputType | null
+  }
+
+  type GetImageQuizGameStateGroupByPayload<T extends ImageQuizGameStateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImageQuizGameStateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImageQuizGameStateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImageQuizGameStateGroupByOutputType[P]>
+            : GetScalarType<T[P], ImageQuizGameStateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ImageQuizGameStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamName?: boolean
+    imageId?: boolean
+    timeTaken?: boolean
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imageQuizGameState"]>
+
+  export type ImageQuizGameStateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamName?: boolean
+    imageId?: boolean
+    timeTaken?: boolean
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imageQuizGameState"]>
+
+  export type ImageQuizGameStateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teamName?: boolean
+    imageId?: boolean
+    timeTaken?: boolean
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imageQuizGameState"]>
+
+  export type ImageQuizGameStateSelectScalar = {
+    id?: boolean
+    teamName?: boolean
+    imageId?: boolean
+    timeTaken?: boolean
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+  }
+
+  export type ImageQuizGameStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "teamName" | "imageId" | "timeTaken" | "completed" | "isCorrect" | "startedAt" | "completedAt", ExtArgs["result"]["imageQuizGameState"]>
+  export type ImageQuizGameStateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+  export type ImageQuizGameStateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+  export type ImageQuizGameStateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    team?: boolean | TeamDefaultArgs<ExtArgs>
+  }
+
+  export type $ImageQuizGameStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ImageQuizGameState"
+    objects: {
+      team: Prisma.$TeamPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      teamName: string
+      imageId: string
+      timeTaken: number
+      completed: boolean
+      isCorrect: boolean
+      startedAt: Date
+      completedAt: Date | null
+    }, ExtArgs["result"]["imageQuizGameState"]>
+    composites: {}
+  }
+
+  type ImageQuizGameStateGetPayload<S extends boolean | null | undefined | ImageQuizGameStateDefaultArgs> = $Result.GetResult<Prisma.$ImageQuizGameStatePayload, S>
+
+  type ImageQuizGameStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ImageQuizGameStateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ImageQuizGameStateCountAggregateInputType | true
+    }
+
+  export interface ImageQuizGameStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ImageQuizGameState'], meta: { name: 'ImageQuizGameState' } }
+    /**
+     * Find zero or one ImageQuizGameState that matches the filter.
+     * @param {ImageQuizGameStateFindUniqueArgs} args - Arguments to find a ImageQuizGameState
+     * @example
+     * // Get one ImageQuizGameState
+     * const imageQuizGameState = await prisma.imageQuizGameState.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ImageQuizGameStateFindUniqueArgs>(args: SelectSubset<T, ImageQuizGameStateFindUniqueArgs<ExtArgs>>): Prisma__ImageQuizGameStateClient<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ImageQuizGameState that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ImageQuizGameStateFindUniqueOrThrowArgs} args - Arguments to find a ImageQuizGameState
+     * @example
+     * // Get one ImageQuizGameState
+     * const imageQuizGameState = await prisma.imageQuizGameState.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ImageQuizGameStateFindUniqueOrThrowArgs>(args: SelectSubset<T, ImageQuizGameStateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ImageQuizGameStateClient<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ImageQuizGameState that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageQuizGameStateFindFirstArgs} args - Arguments to find a ImageQuizGameState
+     * @example
+     * // Get one ImageQuizGameState
+     * const imageQuizGameState = await prisma.imageQuizGameState.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ImageQuizGameStateFindFirstArgs>(args?: SelectSubset<T, ImageQuizGameStateFindFirstArgs<ExtArgs>>): Prisma__ImageQuizGameStateClient<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ImageQuizGameState that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageQuizGameStateFindFirstOrThrowArgs} args - Arguments to find a ImageQuizGameState
+     * @example
+     * // Get one ImageQuizGameState
+     * const imageQuizGameState = await prisma.imageQuizGameState.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ImageQuizGameStateFindFirstOrThrowArgs>(args?: SelectSubset<T, ImageQuizGameStateFindFirstOrThrowArgs<ExtArgs>>): Prisma__ImageQuizGameStateClient<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ImageQuizGameStates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageQuizGameStateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ImageQuizGameStates
+     * const imageQuizGameStates = await prisma.imageQuizGameState.findMany()
+     * 
+     * // Get first 10 ImageQuizGameStates
+     * const imageQuizGameStates = await prisma.imageQuizGameState.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const imageQuizGameStateWithIdOnly = await prisma.imageQuizGameState.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ImageQuizGameStateFindManyArgs>(args?: SelectSubset<T, ImageQuizGameStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ImageQuizGameState.
+     * @param {ImageQuizGameStateCreateArgs} args - Arguments to create a ImageQuizGameState.
+     * @example
+     * // Create one ImageQuizGameState
+     * const ImageQuizGameState = await prisma.imageQuizGameState.create({
+     *   data: {
+     *     // ... data to create a ImageQuizGameState
+     *   }
+     * })
+     * 
+     */
+    create<T extends ImageQuizGameStateCreateArgs>(args: SelectSubset<T, ImageQuizGameStateCreateArgs<ExtArgs>>): Prisma__ImageQuizGameStateClient<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ImageQuizGameStates.
+     * @param {ImageQuizGameStateCreateManyArgs} args - Arguments to create many ImageQuizGameStates.
+     * @example
+     * // Create many ImageQuizGameStates
+     * const imageQuizGameState = await prisma.imageQuizGameState.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ImageQuizGameStateCreateManyArgs>(args?: SelectSubset<T, ImageQuizGameStateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ImageQuizGameStates and returns the data saved in the database.
+     * @param {ImageQuizGameStateCreateManyAndReturnArgs} args - Arguments to create many ImageQuizGameStates.
+     * @example
+     * // Create many ImageQuizGameStates
+     * const imageQuizGameState = await prisma.imageQuizGameState.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ImageQuizGameStates and only return the `id`
+     * const imageQuizGameStateWithIdOnly = await prisma.imageQuizGameState.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ImageQuizGameStateCreateManyAndReturnArgs>(args?: SelectSubset<T, ImageQuizGameStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ImageQuizGameState.
+     * @param {ImageQuizGameStateDeleteArgs} args - Arguments to delete one ImageQuizGameState.
+     * @example
+     * // Delete one ImageQuizGameState
+     * const ImageQuizGameState = await prisma.imageQuizGameState.delete({
+     *   where: {
+     *     // ... filter to delete one ImageQuizGameState
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ImageQuizGameStateDeleteArgs>(args: SelectSubset<T, ImageQuizGameStateDeleteArgs<ExtArgs>>): Prisma__ImageQuizGameStateClient<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ImageQuizGameState.
+     * @param {ImageQuizGameStateUpdateArgs} args - Arguments to update one ImageQuizGameState.
+     * @example
+     * // Update one ImageQuizGameState
+     * const imageQuizGameState = await prisma.imageQuizGameState.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ImageQuizGameStateUpdateArgs>(args: SelectSubset<T, ImageQuizGameStateUpdateArgs<ExtArgs>>): Prisma__ImageQuizGameStateClient<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ImageQuizGameStates.
+     * @param {ImageQuizGameStateDeleteManyArgs} args - Arguments to filter ImageQuizGameStates to delete.
+     * @example
+     * // Delete a few ImageQuizGameStates
+     * const { count } = await prisma.imageQuizGameState.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ImageQuizGameStateDeleteManyArgs>(args?: SelectSubset<T, ImageQuizGameStateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ImageQuizGameStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageQuizGameStateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ImageQuizGameStates
+     * const imageQuizGameState = await prisma.imageQuizGameState.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ImageQuizGameStateUpdateManyArgs>(args: SelectSubset<T, ImageQuizGameStateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ImageQuizGameStates and returns the data updated in the database.
+     * @param {ImageQuizGameStateUpdateManyAndReturnArgs} args - Arguments to update many ImageQuizGameStates.
+     * @example
+     * // Update many ImageQuizGameStates
+     * const imageQuizGameState = await prisma.imageQuizGameState.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ImageQuizGameStates and only return the `id`
+     * const imageQuizGameStateWithIdOnly = await prisma.imageQuizGameState.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ImageQuizGameStateUpdateManyAndReturnArgs>(args: SelectSubset<T, ImageQuizGameStateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ImageQuizGameState.
+     * @param {ImageQuizGameStateUpsertArgs} args - Arguments to update or create a ImageQuizGameState.
+     * @example
+     * // Update or create a ImageQuizGameState
+     * const imageQuizGameState = await prisma.imageQuizGameState.upsert({
+     *   create: {
+     *     // ... data to create a ImageQuizGameState
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ImageQuizGameState we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ImageQuizGameStateUpsertArgs>(args: SelectSubset<T, ImageQuizGameStateUpsertArgs<ExtArgs>>): Prisma__ImageQuizGameStateClient<$Result.GetResult<Prisma.$ImageQuizGameStatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ImageQuizGameStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageQuizGameStateCountArgs} args - Arguments to filter ImageQuizGameStates to count.
+     * @example
+     * // Count the number of ImageQuizGameStates
+     * const count = await prisma.imageQuizGameState.count({
+     *   where: {
+     *     // ... the filter for the ImageQuizGameStates we want to count
+     *   }
+     * })
+    **/
+    count<T extends ImageQuizGameStateCountArgs>(
+      args?: Subset<T, ImageQuizGameStateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImageQuizGameStateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ImageQuizGameState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageQuizGameStateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImageQuizGameStateAggregateArgs>(args: Subset<T, ImageQuizGameStateAggregateArgs>): Prisma.PrismaPromise<GetImageQuizGameStateAggregateType<T>>
+
+    /**
+     * Group by ImageQuizGameState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageQuizGameStateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ImageQuizGameStateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ImageQuizGameStateGroupByArgs['orderBy'] }
+        : { orderBy?: ImageQuizGameStateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ImageQuizGameStateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImageQuizGameStateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ImageQuizGameState model
+   */
+  readonly fields: ImageQuizGameStateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ImageQuizGameState.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ImageQuizGameStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    team<T extends TeamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TeamDefaultArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ImageQuizGameState model
+   */
+  interface ImageQuizGameStateFieldRefs {
+    readonly id: FieldRef<"ImageQuizGameState", 'Int'>
+    readonly teamName: FieldRef<"ImageQuizGameState", 'String'>
+    readonly imageId: FieldRef<"ImageQuizGameState", 'String'>
+    readonly timeTaken: FieldRef<"ImageQuizGameState", 'Int'>
+    readonly completed: FieldRef<"ImageQuizGameState", 'Boolean'>
+    readonly isCorrect: FieldRef<"ImageQuizGameState", 'Boolean'>
+    readonly startedAt: FieldRef<"ImageQuizGameState", 'DateTime'>
+    readonly completedAt: FieldRef<"ImageQuizGameState", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ImageQuizGameState findUnique
+   */
+  export type ImageQuizGameStateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which ImageQuizGameState to fetch.
+     */
+    where: ImageQuizGameStateWhereUniqueInput
+  }
+
+  /**
+   * ImageQuizGameState findUniqueOrThrow
+   */
+  export type ImageQuizGameStateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which ImageQuizGameState to fetch.
+     */
+    where: ImageQuizGameStateWhereUniqueInput
+  }
+
+  /**
+   * ImageQuizGameState findFirst
+   */
+  export type ImageQuizGameStateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which ImageQuizGameState to fetch.
+     */
+    where?: ImageQuizGameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImageQuizGameStates to fetch.
+     */
+    orderBy?: ImageQuizGameStateOrderByWithRelationInput | ImageQuizGameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ImageQuizGameStates.
+     */
+    cursor?: ImageQuizGameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImageQuizGameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImageQuizGameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ImageQuizGameStates.
+     */
+    distinct?: ImageQuizGameStateScalarFieldEnum | ImageQuizGameStateScalarFieldEnum[]
+  }
+
+  /**
+   * ImageQuizGameState findFirstOrThrow
+   */
+  export type ImageQuizGameStateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which ImageQuizGameState to fetch.
+     */
+    where?: ImageQuizGameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImageQuizGameStates to fetch.
+     */
+    orderBy?: ImageQuizGameStateOrderByWithRelationInput | ImageQuizGameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ImageQuizGameStates.
+     */
+    cursor?: ImageQuizGameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImageQuizGameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImageQuizGameStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ImageQuizGameStates.
+     */
+    distinct?: ImageQuizGameStateScalarFieldEnum | ImageQuizGameStateScalarFieldEnum[]
+  }
+
+  /**
+   * ImageQuizGameState findMany
+   */
+  export type ImageQuizGameStateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * Filter, which ImageQuizGameStates to fetch.
+     */
+    where?: ImageQuizGameStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImageQuizGameStates to fetch.
+     */
+    orderBy?: ImageQuizGameStateOrderByWithRelationInput | ImageQuizGameStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ImageQuizGameStates.
+     */
+    cursor?: ImageQuizGameStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImageQuizGameStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImageQuizGameStates.
+     */
+    skip?: number
+    distinct?: ImageQuizGameStateScalarFieldEnum | ImageQuizGameStateScalarFieldEnum[]
+  }
+
+  /**
+   * ImageQuizGameState create
+   */
+  export type ImageQuizGameStateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ImageQuizGameState.
+     */
+    data: XOR<ImageQuizGameStateCreateInput, ImageQuizGameStateUncheckedCreateInput>
+  }
+
+  /**
+   * ImageQuizGameState createMany
+   */
+  export type ImageQuizGameStateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ImageQuizGameStates.
+     */
+    data: ImageQuizGameStateCreateManyInput | ImageQuizGameStateCreateManyInput[]
+  }
+
+  /**
+   * ImageQuizGameState createManyAndReturn
+   */
+  export type ImageQuizGameStateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * The data used to create many ImageQuizGameStates.
+     */
+    data: ImageQuizGameStateCreateManyInput | ImageQuizGameStateCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ImageQuizGameState update
+   */
+  export type ImageQuizGameStateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ImageQuizGameState.
+     */
+    data: XOR<ImageQuizGameStateUpdateInput, ImageQuizGameStateUncheckedUpdateInput>
+    /**
+     * Choose, which ImageQuizGameState to update.
+     */
+    where: ImageQuizGameStateWhereUniqueInput
+  }
+
+  /**
+   * ImageQuizGameState updateMany
+   */
+  export type ImageQuizGameStateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ImageQuizGameStates.
+     */
+    data: XOR<ImageQuizGameStateUpdateManyMutationInput, ImageQuizGameStateUncheckedUpdateManyInput>
+    /**
+     * Filter which ImageQuizGameStates to update
+     */
+    where?: ImageQuizGameStateWhereInput
+    /**
+     * Limit how many ImageQuizGameStates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ImageQuizGameState updateManyAndReturn
+   */
+  export type ImageQuizGameStateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * The data used to update ImageQuizGameStates.
+     */
+    data: XOR<ImageQuizGameStateUpdateManyMutationInput, ImageQuizGameStateUncheckedUpdateManyInput>
+    /**
+     * Filter which ImageQuizGameStates to update
+     */
+    where?: ImageQuizGameStateWhereInput
+    /**
+     * Limit how many ImageQuizGameStates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ImageQuizGameState upsert
+   */
+  export type ImageQuizGameStateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ImageQuizGameState to update in case it exists.
+     */
+    where: ImageQuizGameStateWhereUniqueInput
+    /**
+     * In case the ImageQuizGameState found by the `where` argument doesn't exist, create a new ImageQuizGameState with this data.
+     */
+    create: XOR<ImageQuizGameStateCreateInput, ImageQuizGameStateUncheckedCreateInput>
+    /**
+     * In case the ImageQuizGameState was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ImageQuizGameStateUpdateInput, ImageQuizGameStateUncheckedUpdateInput>
+  }
+
+  /**
+   * ImageQuizGameState delete
+   */
+  export type ImageQuizGameStateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+    /**
+     * Filter which ImageQuizGameState to delete.
+     */
+    where: ImageQuizGameStateWhereUniqueInput
+  }
+
+  /**
+   * ImageQuizGameState deleteMany
+   */
+  export type ImageQuizGameStateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ImageQuizGameStates to delete
+     */
+    where?: ImageQuizGameStateWhereInput
+    /**
+     * Limit how many ImageQuizGameStates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ImageQuizGameState without action
+   */
+  export type ImageQuizGameStateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImageQuizGameState
+     */
+    select?: ImageQuizGameStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImageQuizGameState
+     */
+    omit?: ImageQuizGameStateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageQuizGameStateInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4556,6 +7065,33 @@ export namespace Prisma {
   };
 
   export type QuizGameStateScalarFieldEnum = (typeof QuizGameStateScalarFieldEnum)[keyof typeof QuizGameStateScalarFieldEnum]
+
+
+  export const CrosswordGameStateScalarFieldEnum: {
+    id: 'id',
+    teamName: 'teamName',
+    timeTaken: 'timeTaken',
+    completed: 'completed',
+    isCorrect: 'isCorrect',
+    startedAt: 'startedAt',
+    completedAt: 'completedAt'
+  };
+
+  export type CrosswordGameStateScalarFieldEnum = (typeof CrosswordGameStateScalarFieldEnum)[keyof typeof CrosswordGameStateScalarFieldEnum]
+
+
+  export const ImageQuizGameStateScalarFieldEnum: {
+    id: 'id',
+    teamName: 'teamName',
+    imageId: 'imageId',
+    timeTaken: 'timeTaken',
+    completed: 'completed',
+    isCorrect: 'isCorrect',
+    startedAt: 'startedAt',
+    completedAt: 'completedAt'
+  };
+
+  export type ImageQuizGameStateScalarFieldEnum = (typeof ImageQuizGameStateScalarFieldEnum)[keyof typeof ImageQuizGameStateScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4629,6 +7165,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Team"> | Date | string
     wikipediaGames?: WikipediaGameStateListRelationFilter
     quizGames?: QuizGameStateListRelationFilter
+    crosswordGames?: CrosswordGameStateListRelationFilter
+    imageQuizGames?: ImageQuizGameStateListRelationFilter
   }
 
   export type TeamOrderByWithRelationInput = {
@@ -4640,6 +7178,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
     wikipediaGames?: WikipediaGameStateOrderByRelationAggregateInput
     quizGames?: QuizGameStateOrderByRelationAggregateInput
+    crosswordGames?: CrosswordGameStateOrderByRelationAggregateInput
+    imageQuizGames?: ImageQuizGameStateOrderByRelationAggregateInput
   }
 
   export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -4654,6 +7194,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Team"> | Date | string
     wikipediaGames?: WikipediaGameStateListRelationFilter
     quizGames?: QuizGameStateListRelationFilter
+    crosswordGames?: CrosswordGameStateListRelationFilter
+    imageQuizGames?: ImageQuizGameStateListRelationFilter
   }, "id" | "name">
 
   export type TeamOrderByWithAggregationInput = {
@@ -4828,6 +7370,146 @@ export namespace Prisma {
     completedAt?: DateTimeNullableWithAggregatesFilter<"QuizGameState"> | Date | string | null
   }
 
+  export type CrosswordGameStateWhereInput = {
+    AND?: CrosswordGameStateWhereInput | CrosswordGameStateWhereInput[]
+    OR?: CrosswordGameStateWhereInput[]
+    NOT?: CrosswordGameStateWhereInput | CrosswordGameStateWhereInput[]
+    id?: IntFilter<"CrosswordGameState"> | number
+    teamName?: StringFilter<"CrosswordGameState"> | string
+    timeTaken?: IntFilter<"CrosswordGameState"> | number
+    completed?: BoolFilter<"CrosswordGameState"> | boolean
+    isCorrect?: BoolFilter<"CrosswordGameState"> | boolean
+    startedAt?: DateTimeFilter<"CrosswordGameState"> | Date | string
+    completedAt?: DateTimeNullableFilter<"CrosswordGameState"> | Date | string | null
+    team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
+  }
+
+  export type CrosswordGameStateOrderByWithRelationInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    team?: TeamOrderByWithRelationInput
+  }
+
+  export type CrosswordGameStateWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    teamName?: string
+    AND?: CrosswordGameStateWhereInput | CrosswordGameStateWhereInput[]
+    OR?: CrosswordGameStateWhereInput[]
+    NOT?: CrosswordGameStateWhereInput | CrosswordGameStateWhereInput[]
+    timeTaken?: IntFilter<"CrosswordGameState"> | number
+    completed?: BoolFilter<"CrosswordGameState"> | boolean
+    isCorrect?: BoolFilter<"CrosswordGameState"> | boolean
+    startedAt?: DateTimeFilter<"CrosswordGameState"> | Date | string
+    completedAt?: DateTimeNullableFilter<"CrosswordGameState"> | Date | string | null
+    team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
+  }, "id" | "teamName">
+
+  export type CrosswordGameStateOrderByWithAggregationInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    _count?: CrosswordGameStateCountOrderByAggregateInput
+    _avg?: CrosswordGameStateAvgOrderByAggregateInput
+    _max?: CrosswordGameStateMaxOrderByAggregateInput
+    _min?: CrosswordGameStateMinOrderByAggregateInput
+    _sum?: CrosswordGameStateSumOrderByAggregateInput
+  }
+
+  export type CrosswordGameStateScalarWhereWithAggregatesInput = {
+    AND?: CrosswordGameStateScalarWhereWithAggregatesInput | CrosswordGameStateScalarWhereWithAggregatesInput[]
+    OR?: CrosswordGameStateScalarWhereWithAggregatesInput[]
+    NOT?: CrosswordGameStateScalarWhereWithAggregatesInput | CrosswordGameStateScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"CrosswordGameState"> | number
+    teamName?: StringWithAggregatesFilter<"CrosswordGameState"> | string
+    timeTaken?: IntWithAggregatesFilter<"CrosswordGameState"> | number
+    completed?: BoolWithAggregatesFilter<"CrosswordGameState"> | boolean
+    isCorrect?: BoolWithAggregatesFilter<"CrosswordGameState"> | boolean
+    startedAt?: DateTimeWithAggregatesFilter<"CrosswordGameState"> | Date | string
+    completedAt?: DateTimeNullableWithAggregatesFilter<"CrosswordGameState"> | Date | string | null
+  }
+
+  export type ImageQuizGameStateWhereInput = {
+    AND?: ImageQuizGameStateWhereInput | ImageQuizGameStateWhereInput[]
+    OR?: ImageQuizGameStateWhereInput[]
+    NOT?: ImageQuizGameStateWhereInput | ImageQuizGameStateWhereInput[]
+    id?: IntFilter<"ImageQuizGameState"> | number
+    teamName?: StringFilter<"ImageQuizGameState"> | string
+    imageId?: StringFilter<"ImageQuizGameState"> | string
+    timeTaken?: IntFilter<"ImageQuizGameState"> | number
+    completed?: BoolFilter<"ImageQuizGameState"> | boolean
+    isCorrect?: BoolFilter<"ImageQuizGameState"> | boolean
+    startedAt?: DateTimeFilter<"ImageQuizGameState"> | Date | string
+    completedAt?: DateTimeNullableFilter<"ImageQuizGameState"> | Date | string | null
+    team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
+  }
+
+  export type ImageQuizGameStateOrderByWithRelationInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    imageId?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    team?: TeamOrderByWithRelationInput
+  }
+
+  export type ImageQuizGameStateWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    teamName_imageId?: ImageQuizGameStateTeamNameImageIdCompoundUniqueInput
+    AND?: ImageQuizGameStateWhereInput | ImageQuizGameStateWhereInput[]
+    OR?: ImageQuizGameStateWhereInput[]
+    NOT?: ImageQuizGameStateWhereInput | ImageQuizGameStateWhereInput[]
+    teamName?: StringFilter<"ImageQuizGameState"> | string
+    imageId?: StringFilter<"ImageQuizGameState"> | string
+    timeTaken?: IntFilter<"ImageQuizGameState"> | number
+    completed?: BoolFilter<"ImageQuizGameState"> | boolean
+    isCorrect?: BoolFilter<"ImageQuizGameState"> | boolean
+    startedAt?: DateTimeFilter<"ImageQuizGameState"> | Date | string
+    completedAt?: DateTimeNullableFilter<"ImageQuizGameState"> | Date | string | null
+    team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
+  }, "id" | "teamName_imageId">
+
+  export type ImageQuizGameStateOrderByWithAggregationInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    imageId?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    _count?: ImageQuizGameStateCountOrderByAggregateInput
+    _avg?: ImageQuizGameStateAvgOrderByAggregateInput
+    _max?: ImageQuizGameStateMaxOrderByAggregateInput
+    _min?: ImageQuizGameStateMinOrderByAggregateInput
+    _sum?: ImageQuizGameStateSumOrderByAggregateInput
+  }
+
+  export type ImageQuizGameStateScalarWhereWithAggregatesInput = {
+    AND?: ImageQuizGameStateScalarWhereWithAggregatesInput | ImageQuizGameStateScalarWhereWithAggregatesInput[]
+    OR?: ImageQuizGameStateScalarWhereWithAggregatesInput[]
+    NOT?: ImageQuizGameStateScalarWhereWithAggregatesInput | ImageQuizGameStateScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ImageQuizGameState"> | number
+    teamName?: StringWithAggregatesFilter<"ImageQuizGameState"> | string
+    imageId?: StringWithAggregatesFilter<"ImageQuizGameState"> | string
+    timeTaken?: IntWithAggregatesFilter<"ImageQuizGameState"> | number
+    completed?: BoolWithAggregatesFilter<"ImageQuizGameState"> | boolean
+    isCorrect?: BoolWithAggregatesFilter<"ImageQuizGameState"> | boolean
+    startedAt?: DateTimeWithAggregatesFilter<"ImageQuizGameState"> | Date | string
+    completedAt?: DateTimeNullableWithAggregatesFilter<"ImageQuizGameState"> | Date | string | null
+  }
+
   export type TeamCreateInput = {
     name: string
     currentLevel?: string
@@ -4836,6 +7518,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     wikipediaGames?: WikipediaGameStateCreateNestedManyWithoutTeamInput
     quizGames?: QuizGameStateCreateNestedManyWithoutTeamInput
+    crosswordGames?: CrosswordGameStateCreateNestedManyWithoutTeamInput
+    imageQuizGames?: ImageQuizGameStateCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateInput = {
@@ -4847,6 +7531,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     wikipediaGames?: WikipediaGameStateUncheckedCreateNestedManyWithoutTeamInput
     quizGames?: QuizGameStateUncheckedCreateNestedManyWithoutTeamInput
+    crosswordGames?: CrosswordGameStateUncheckedCreateNestedManyWithoutTeamInput
+    imageQuizGames?: ImageQuizGameStateUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUpdateInput = {
@@ -4857,6 +7543,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wikipediaGames?: WikipediaGameStateUpdateManyWithoutTeamNestedInput
     quizGames?: QuizGameStateUpdateManyWithoutTeamNestedInput
+    crosswordGames?: CrosswordGameStateUpdateManyWithoutTeamNestedInput
+    imageQuizGames?: ImageQuizGameStateUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateInput = {
@@ -4868,6 +7556,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wikipediaGames?: WikipediaGameStateUncheckedUpdateManyWithoutTeamNestedInput
     quizGames?: QuizGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    crosswordGames?: CrosswordGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    imageQuizGames?: ImageQuizGameStateUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamCreateManyInput = {
@@ -5042,6 +7732,145 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type CrosswordGameStateCreateInput = {
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+    team: TeamCreateNestedOneWithoutCrosswordGamesInput
+  }
+
+  export type CrosswordGameStateUncheckedCreateInput = {
+    id?: number
+    teamName: string
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CrosswordGameStateUpdateInput = {
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    team?: TeamUpdateOneRequiredWithoutCrosswordGamesNestedInput
+  }
+
+  export type CrosswordGameStateUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    teamName?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CrosswordGameStateCreateManyInput = {
+    id?: number
+    teamName: string
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CrosswordGameStateUpdateManyMutationInput = {
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CrosswordGameStateUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    teamName?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ImageQuizGameStateCreateInput = {
+    imageId: string
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+    team: TeamCreateNestedOneWithoutImageQuizGamesInput
+  }
+
+  export type ImageQuizGameStateUncheckedCreateInput = {
+    id?: number
+    teamName: string
+    imageId: string
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type ImageQuizGameStateUpdateInput = {
+    imageId?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    team?: TeamUpdateOneRequiredWithoutImageQuizGamesNestedInput
+  }
+
+  export type ImageQuizGameStateUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    teamName?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ImageQuizGameStateCreateManyInput = {
+    id?: number
+    teamName: string
+    imageId: string
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type ImageQuizGameStateUpdateManyMutationInput = {
+    imageId?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ImageQuizGameStateUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    teamName?: StringFieldUpdateOperationsInput | string
+    imageId?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -5090,11 +7919,31 @@ export namespace Prisma {
     none?: QuizGameStateWhereInput
   }
 
+  export type CrosswordGameStateListRelationFilter = {
+    every?: CrosswordGameStateWhereInput
+    some?: CrosswordGameStateWhereInput
+    none?: CrosswordGameStateWhereInput
+  }
+
+  export type ImageQuizGameStateListRelationFilter = {
+    every?: ImageQuizGameStateWhereInput
+    some?: ImageQuizGameStateWhereInput
+    none?: ImageQuizGameStateWhereInput
+  }
+
   export type WikipediaGameStateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type QuizGameStateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CrosswordGameStateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ImageQuizGameStateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -5328,6 +8177,94 @@ export namespace Prisma {
     timeTaken?: SortOrder
   }
 
+  export type CrosswordGameStateCountOrderByAggregateInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type CrosswordGameStateAvgOrderByAggregateInput = {
+    id?: SortOrder
+    timeTaken?: SortOrder
+  }
+
+  export type CrosswordGameStateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type CrosswordGameStateMinOrderByAggregateInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type CrosswordGameStateSumOrderByAggregateInput = {
+    id?: SortOrder
+    timeTaken?: SortOrder
+  }
+
+  export type ImageQuizGameStateTeamNameImageIdCompoundUniqueInput = {
+    teamName: string
+    imageId: string
+  }
+
+  export type ImageQuizGameStateCountOrderByAggregateInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    imageId?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type ImageQuizGameStateAvgOrderByAggregateInput = {
+    id?: SortOrder
+    timeTaken?: SortOrder
+  }
+
+  export type ImageQuizGameStateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    imageId?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type ImageQuizGameStateMinOrderByAggregateInput = {
+    id?: SortOrder
+    teamName?: SortOrder
+    imageId?: SortOrder
+    timeTaken?: SortOrder
+    completed?: SortOrder
+    isCorrect?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type ImageQuizGameStateSumOrderByAggregateInput = {
+    id?: SortOrder
+    timeTaken?: SortOrder
+  }
+
   export type WikipediaGameStateCreateNestedManyWithoutTeamInput = {
     create?: XOR<WikipediaGameStateCreateWithoutTeamInput, WikipediaGameStateUncheckedCreateWithoutTeamInput> | WikipediaGameStateCreateWithoutTeamInput[] | WikipediaGameStateUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: WikipediaGameStateCreateOrConnectWithoutTeamInput | WikipediaGameStateCreateOrConnectWithoutTeamInput[]
@@ -5342,6 +8279,20 @@ export namespace Prisma {
     connect?: QuizGameStateWhereUniqueInput | QuizGameStateWhereUniqueInput[]
   }
 
+  export type CrosswordGameStateCreateNestedManyWithoutTeamInput = {
+    create?: XOR<CrosswordGameStateCreateWithoutTeamInput, CrosswordGameStateUncheckedCreateWithoutTeamInput> | CrosswordGameStateCreateWithoutTeamInput[] | CrosswordGameStateUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: CrosswordGameStateCreateOrConnectWithoutTeamInput | CrosswordGameStateCreateOrConnectWithoutTeamInput[]
+    createMany?: CrosswordGameStateCreateManyTeamInputEnvelope
+    connect?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+  }
+
+  export type ImageQuizGameStateCreateNestedManyWithoutTeamInput = {
+    create?: XOR<ImageQuizGameStateCreateWithoutTeamInput, ImageQuizGameStateUncheckedCreateWithoutTeamInput> | ImageQuizGameStateCreateWithoutTeamInput[] | ImageQuizGameStateUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: ImageQuizGameStateCreateOrConnectWithoutTeamInput | ImageQuizGameStateCreateOrConnectWithoutTeamInput[]
+    createMany?: ImageQuizGameStateCreateManyTeamInputEnvelope
+    connect?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+  }
+
   export type WikipediaGameStateUncheckedCreateNestedManyWithoutTeamInput = {
     create?: XOR<WikipediaGameStateCreateWithoutTeamInput, WikipediaGameStateUncheckedCreateWithoutTeamInput> | WikipediaGameStateCreateWithoutTeamInput[] | WikipediaGameStateUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: WikipediaGameStateCreateOrConnectWithoutTeamInput | WikipediaGameStateCreateOrConnectWithoutTeamInput[]
@@ -5354,6 +8305,20 @@ export namespace Prisma {
     connectOrCreate?: QuizGameStateCreateOrConnectWithoutTeamInput | QuizGameStateCreateOrConnectWithoutTeamInput[]
     createMany?: QuizGameStateCreateManyTeamInputEnvelope
     connect?: QuizGameStateWhereUniqueInput | QuizGameStateWhereUniqueInput[]
+  }
+
+  export type CrosswordGameStateUncheckedCreateNestedManyWithoutTeamInput = {
+    create?: XOR<CrosswordGameStateCreateWithoutTeamInput, CrosswordGameStateUncheckedCreateWithoutTeamInput> | CrosswordGameStateCreateWithoutTeamInput[] | CrosswordGameStateUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: CrosswordGameStateCreateOrConnectWithoutTeamInput | CrosswordGameStateCreateOrConnectWithoutTeamInput[]
+    createMany?: CrosswordGameStateCreateManyTeamInputEnvelope
+    connect?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+  }
+
+  export type ImageQuizGameStateUncheckedCreateNestedManyWithoutTeamInput = {
+    create?: XOR<ImageQuizGameStateCreateWithoutTeamInput, ImageQuizGameStateUncheckedCreateWithoutTeamInput> | ImageQuizGameStateCreateWithoutTeamInput[] | ImageQuizGameStateUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: ImageQuizGameStateCreateOrConnectWithoutTeamInput | ImageQuizGameStateCreateOrConnectWithoutTeamInput[]
+    createMany?: ImageQuizGameStateCreateManyTeamInputEnvelope
+    connect?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5400,6 +8365,34 @@ export namespace Prisma {
     deleteMany?: QuizGameStateScalarWhereInput | QuizGameStateScalarWhereInput[]
   }
 
+  export type CrosswordGameStateUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<CrosswordGameStateCreateWithoutTeamInput, CrosswordGameStateUncheckedCreateWithoutTeamInput> | CrosswordGameStateCreateWithoutTeamInput[] | CrosswordGameStateUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: CrosswordGameStateCreateOrConnectWithoutTeamInput | CrosswordGameStateCreateOrConnectWithoutTeamInput[]
+    upsert?: CrosswordGameStateUpsertWithWhereUniqueWithoutTeamInput | CrosswordGameStateUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: CrosswordGameStateCreateManyTeamInputEnvelope
+    set?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+    disconnect?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+    delete?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+    connect?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+    update?: CrosswordGameStateUpdateWithWhereUniqueWithoutTeamInput | CrosswordGameStateUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: CrosswordGameStateUpdateManyWithWhereWithoutTeamInput | CrosswordGameStateUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: CrosswordGameStateScalarWhereInput | CrosswordGameStateScalarWhereInput[]
+  }
+
+  export type ImageQuizGameStateUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<ImageQuizGameStateCreateWithoutTeamInput, ImageQuizGameStateUncheckedCreateWithoutTeamInput> | ImageQuizGameStateCreateWithoutTeamInput[] | ImageQuizGameStateUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: ImageQuizGameStateCreateOrConnectWithoutTeamInput | ImageQuizGameStateCreateOrConnectWithoutTeamInput[]
+    upsert?: ImageQuizGameStateUpsertWithWhereUniqueWithoutTeamInput | ImageQuizGameStateUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: ImageQuizGameStateCreateManyTeamInputEnvelope
+    set?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+    disconnect?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+    delete?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+    connect?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+    update?: ImageQuizGameStateUpdateWithWhereUniqueWithoutTeamInput | ImageQuizGameStateUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: ImageQuizGameStateUpdateManyWithWhereWithoutTeamInput | ImageQuizGameStateUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: ImageQuizGameStateScalarWhereInput | ImageQuizGameStateScalarWhereInput[]
+  }
+
   export type WikipediaGameStateUncheckedUpdateManyWithoutTeamNestedInput = {
     create?: XOR<WikipediaGameStateCreateWithoutTeamInput, WikipediaGameStateUncheckedCreateWithoutTeamInput> | WikipediaGameStateCreateWithoutTeamInput[] | WikipediaGameStateUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: WikipediaGameStateCreateOrConnectWithoutTeamInput | WikipediaGameStateCreateOrConnectWithoutTeamInput[]
@@ -5426,6 +8419,34 @@ export namespace Prisma {
     update?: QuizGameStateUpdateWithWhereUniqueWithoutTeamInput | QuizGameStateUpdateWithWhereUniqueWithoutTeamInput[]
     updateMany?: QuizGameStateUpdateManyWithWhereWithoutTeamInput | QuizGameStateUpdateManyWithWhereWithoutTeamInput[]
     deleteMany?: QuizGameStateScalarWhereInput | QuizGameStateScalarWhereInput[]
+  }
+
+  export type CrosswordGameStateUncheckedUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<CrosswordGameStateCreateWithoutTeamInput, CrosswordGameStateUncheckedCreateWithoutTeamInput> | CrosswordGameStateCreateWithoutTeamInput[] | CrosswordGameStateUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: CrosswordGameStateCreateOrConnectWithoutTeamInput | CrosswordGameStateCreateOrConnectWithoutTeamInput[]
+    upsert?: CrosswordGameStateUpsertWithWhereUniqueWithoutTeamInput | CrosswordGameStateUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: CrosswordGameStateCreateManyTeamInputEnvelope
+    set?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+    disconnect?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+    delete?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+    connect?: CrosswordGameStateWhereUniqueInput | CrosswordGameStateWhereUniqueInput[]
+    update?: CrosswordGameStateUpdateWithWhereUniqueWithoutTeamInput | CrosswordGameStateUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: CrosswordGameStateUpdateManyWithWhereWithoutTeamInput | CrosswordGameStateUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: CrosswordGameStateScalarWhereInput | CrosswordGameStateScalarWhereInput[]
+  }
+
+  export type ImageQuizGameStateUncheckedUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<ImageQuizGameStateCreateWithoutTeamInput, ImageQuizGameStateUncheckedCreateWithoutTeamInput> | ImageQuizGameStateCreateWithoutTeamInput[] | ImageQuizGameStateUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: ImageQuizGameStateCreateOrConnectWithoutTeamInput | ImageQuizGameStateCreateOrConnectWithoutTeamInput[]
+    upsert?: ImageQuizGameStateUpsertWithWhereUniqueWithoutTeamInput | ImageQuizGameStateUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: ImageQuizGameStateCreateManyTeamInputEnvelope
+    set?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+    disconnect?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+    delete?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+    connect?: ImageQuizGameStateWhereUniqueInput | ImageQuizGameStateWhereUniqueInput[]
+    update?: ImageQuizGameStateUpdateWithWhereUniqueWithoutTeamInput | ImageQuizGameStateUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: ImageQuizGameStateUpdateManyWithWhereWithoutTeamInput | ImageQuizGameStateUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: ImageQuizGameStateScalarWhereInput | ImageQuizGameStateScalarWhereInput[]
   }
 
   export type TeamCreateNestedOneWithoutWikipediaGamesInput = {
@@ -5462,6 +8483,34 @@ export namespace Prisma {
     upsert?: TeamUpsertWithoutQuizGamesInput
     connect?: TeamWhereUniqueInput
     update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutQuizGamesInput, TeamUpdateWithoutQuizGamesInput>, TeamUncheckedUpdateWithoutQuizGamesInput>
+  }
+
+  export type TeamCreateNestedOneWithoutCrosswordGamesInput = {
+    create?: XOR<TeamCreateWithoutCrosswordGamesInput, TeamUncheckedCreateWithoutCrosswordGamesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutCrosswordGamesInput
+    connect?: TeamWhereUniqueInput
+  }
+
+  export type TeamUpdateOneRequiredWithoutCrosswordGamesNestedInput = {
+    create?: XOR<TeamCreateWithoutCrosswordGamesInput, TeamUncheckedCreateWithoutCrosswordGamesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutCrosswordGamesInput
+    upsert?: TeamUpsertWithoutCrosswordGamesInput
+    connect?: TeamWhereUniqueInput
+    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutCrosswordGamesInput, TeamUpdateWithoutCrosswordGamesInput>, TeamUncheckedUpdateWithoutCrosswordGamesInput>
+  }
+
+  export type TeamCreateNestedOneWithoutImageQuizGamesInput = {
+    create?: XOR<TeamCreateWithoutImageQuizGamesInput, TeamUncheckedCreateWithoutImageQuizGamesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutImageQuizGamesInput
+    connect?: TeamWhereUniqueInput
+  }
+
+  export type TeamUpdateOneRequiredWithoutImageQuizGamesNestedInput = {
+    create?: XOR<TeamCreateWithoutImageQuizGamesInput, TeamUncheckedCreateWithoutImageQuizGamesInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutImageQuizGamesInput
+    upsert?: TeamUpsertWithoutImageQuizGamesInput
+    connect?: TeamWhereUniqueInput
+    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutImageQuizGamesInput, TeamUpdateWithoutImageQuizGamesInput>, TeamUncheckedUpdateWithoutImageQuizGamesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -5663,6 +8712,60 @@ export namespace Prisma {
     data: QuizGameStateCreateManyTeamInput | QuizGameStateCreateManyTeamInput[]
   }
 
+  export type CrosswordGameStateCreateWithoutTeamInput = {
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CrosswordGameStateUncheckedCreateWithoutTeamInput = {
+    id?: number
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CrosswordGameStateCreateOrConnectWithoutTeamInput = {
+    where: CrosswordGameStateWhereUniqueInput
+    create: XOR<CrosswordGameStateCreateWithoutTeamInput, CrosswordGameStateUncheckedCreateWithoutTeamInput>
+  }
+
+  export type CrosswordGameStateCreateManyTeamInputEnvelope = {
+    data: CrosswordGameStateCreateManyTeamInput | CrosswordGameStateCreateManyTeamInput[]
+  }
+
+  export type ImageQuizGameStateCreateWithoutTeamInput = {
+    imageId: string
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type ImageQuizGameStateUncheckedCreateWithoutTeamInput = {
+    id?: number
+    imageId: string
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type ImageQuizGameStateCreateOrConnectWithoutTeamInput = {
+    where: ImageQuizGameStateWhereUniqueInput
+    create: XOR<ImageQuizGameStateCreateWithoutTeamInput, ImageQuizGameStateUncheckedCreateWithoutTeamInput>
+  }
+
+  export type ImageQuizGameStateCreateManyTeamInputEnvelope = {
+    data: ImageQuizGameStateCreateManyTeamInput | ImageQuizGameStateCreateManyTeamInput[]
+  }
+
   export type WikipediaGameStateUpsertWithWhereUniqueWithoutTeamInput = {
     where: WikipediaGameStateWhereUniqueInput
     update: XOR<WikipediaGameStateUpdateWithoutTeamInput, WikipediaGameStateUncheckedUpdateWithoutTeamInput>
@@ -5723,6 +8826,65 @@ export namespace Prisma {
     completedAt?: DateTimeNullableFilter<"QuizGameState"> | Date | string | null
   }
 
+  export type CrosswordGameStateUpsertWithWhereUniqueWithoutTeamInput = {
+    where: CrosswordGameStateWhereUniqueInput
+    update: XOR<CrosswordGameStateUpdateWithoutTeamInput, CrosswordGameStateUncheckedUpdateWithoutTeamInput>
+    create: XOR<CrosswordGameStateCreateWithoutTeamInput, CrosswordGameStateUncheckedCreateWithoutTeamInput>
+  }
+
+  export type CrosswordGameStateUpdateWithWhereUniqueWithoutTeamInput = {
+    where: CrosswordGameStateWhereUniqueInput
+    data: XOR<CrosswordGameStateUpdateWithoutTeamInput, CrosswordGameStateUncheckedUpdateWithoutTeamInput>
+  }
+
+  export type CrosswordGameStateUpdateManyWithWhereWithoutTeamInput = {
+    where: CrosswordGameStateScalarWhereInput
+    data: XOR<CrosswordGameStateUpdateManyMutationInput, CrosswordGameStateUncheckedUpdateManyWithoutTeamInput>
+  }
+
+  export type CrosswordGameStateScalarWhereInput = {
+    AND?: CrosswordGameStateScalarWhereInput | CrosswordGameStateScalarWhereInput[]
+    OR?: CrosswordGameStateScalarWhereInput[]
+    NOT?: CrosswordGameStateScalarWhereInput | CrosswordGameStateScalarWhereInput[]
+    id?: IntFilter<"CrosswordGameState"> | number
+    teamName?: StringFilter<"CrosswordGameState"> | string
+    timeTaken?: IntFilter<"CrosswordGameState"> | number
+    completed?: BoolFilter<"CrosswordGameState"> | boolean
+    isCorrect?: BoolFilter<"CrosswordGameState"> | boolean
+    startedAt?: DateTimeFilter<"CrosswordGameState"> | Date | string
+    completedAt?: DateTimeNullableFilter<"CrosswordGameState"> | Date | string | null
+  }
+
+  export type ImageQuizGameStateUpsertWithWhereUniqueWithoutTeamInput = {
+    where: ImageQuizGameStateWhereUniqueInput
+    update: XOR<ImageQuizGameStateUpdateWithoutTeamInput, ImageQuizGameStateUncheckedUpdateWithoutTeamInput>
+    create: XOR<ImageQuizGameStateCreateWithoutTeamInput, ImageQuizGameStateUncheckedCreateWithoutTeamInput>
+  }
+
+  export type ImageQuizGameStateUpdateWithWhereUniqueWithoutTeamInput = {
+    where: ImageQuizGameStateWhereUniqueInput
+    data: XOR<ImageQuizGameStateUpdateWithoutTeamInput, ImageQuizGameStateUncheckedUpdateWithoutTeamInput>
+  }
+
+  export type ImageQuizGameStateUpdateManyWithWhereWithoutTeamInput = {
+    where: ImageQuizGameStateScalarWhereInput
+    data: XOR<ImageQuizGameStateUpdateManyMutationInput, ImageQuizGameStateUncheckedUpdateManyWithoutTeamInput>
+  }
+
+  export type ImageQuizGameStateScalarWhereInput = {
+    AND?: ImageQuizGameStateScalarWhereInput | ImageQuizGameStateScalarWhereInput[]
+    OR?: ImageQuizGameStateScalarWhereInput[]
+    NOT?: ImageQuizGameStateScalarWhereInput | ImageQuizGameStateScalarWhereInput[]
+    id?: IntFilter<"ImageQuizGameState"> | number
+    teamName?: StringFilter<"ImageQuizGameState"> | string
+    imageId?: StringFilter<"ImageQuizGameState"> | string
+    timeTaken?: IntFilter<"ImageQuizGameState"> | number
+    completed?: BoolFilter<"ImageQuizGameState"> | boolean
+    isCorrect?: BoolFilter<"ImageQuizGameState"> | boolean
+    startedAt?: DateTimeFilter<"ImageQuizGameState"> | Date | string
+    completedAt?: DateTimeNullableFilter<"ImageQuizGameState"> | Date | string | null
+  }
+
   export type TeamCreateWithoutWikipediaGamesInput = {
     name: string
     currentLevel?: string
@@ -5730,6 +8892,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     quizGames?: QuizGameStateCreateNestedManyWithoutTeamInput
+    crosswordGames?: CrosswordGameStateCreateNestedManyWithoutTeamInput
+    imageQuizGames?: ImageQuizGameStateCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutWikipediaGamesInput = {
@@ -5740,6 +8904,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     quizGames?: QuizGameStateUncheckedCreateNestedManyWithoutTeamInput
+    crosswordGames?: CrosswordGameStateUncheckedCreateNestedManyWithoutTeamInput
+    imageQuizGames?: ImageQuizGameStateUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutWikipediaGamesInput = {
@@ -5765,6 +8931,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     quizGames?: QuizGameStateUpdateManyWithoutTeamNestedInput
+    crosswordGames?: CrosswordGameStateUpdateManyWithoutTeamNestedInput
+    imageQuizGames?: ImageQuizGameStateUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutWikipediaGamesInput = {
@@ -5775,6 +8943,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     quizGames?: QuizGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    crosswordGames?: CrosswordGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    imageQuizGames?: ImageQuizGameStateUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamCreateWithoutQuizGamesInput = {
@@ -5784,6 +8954,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     wikipediaGames?: WikipediaGameStateCreateNestedManyWithoutTeamInput
+    crosswordGames?: CrosswordGameStateCreateNestedManyWithoutTeamInput
+    imageQuizGames?: ImageQuizGameStateCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutQuizGamesInput = {
@@ -5794,6 +8966,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     wikipediaGames?: WikipediaGameStateUncheckedCreateNestedManyWithoutTeamInput
+    crosswordGames?: CrosswordGameStateUncheckedCreateNestedManyWithoutTeamInput
+    imageQuizGames?: ImageQuizGameStateUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutQuizGamesInput = {
@@ -5819,6 +8993,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wikipediaGames?: WikipediaGameStateUpdateManyWithoutTeamNestedInput
+    crosswordGames?: CrosswordGameStateUpdateManyWithoutTeamNestedInput
+    imageQuizGames?: ImageQuizGameStateUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutQuizGamesInput = {
@@ -5829,6 +9005,132 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wikipediaGames?: WikipediaGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    crosswordGames?: CrosswordGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    imageQuizGames?: ImageQuizGameStateUncheckedUpdateManyWithoutTeamNestedInput
+  }
+
+  export type TeamCreateWithoutCrosswordGamesInput = {
+    name: string
+    currentLevel?: string
+    score?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wikipediaGames?: WikipediaGameStateCreateNestedManyWithoutTeamInput
+    quizGames?: QuizGameStateCreateNestedManyWithoutTeamInput
+    imageQuizGames?: ImageQuizGameStateCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamUncheckedCreateWithoutCrosswordGamesInput = {
+    id?: number
+    name: string
+    currentLevel?: string
+    score?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wikipediaGames?: WikipediaGameStateUncheckedCreateNestedManyWithoutTeamInput
+    quizGames?: QuizGameStateUncheckedCreateNestedManyWithoutTeamInput
+    imageQuizGames?: ImageQuizGameStateUncheckedCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamCreateOrConnectWithoutCrosswordGamesInput = {
+    where: TeamWhereUniqueInput
+    create: XOR<TeamCreateWithoutCrosswordGamesInput, TeamUncheckedCreateWithoutCrosswordGamesInput>
+  }
+
+  export type TeamUpsertWithoutCrosswordGamesInput = {
+    update: XOR<TeamUpdateWithoutCrosswordGamesInput, TeamUncheckedUpdateWithoutCrosswordGamesInput>
+    create: XOR<TeamCreateWithoutCrosswordGamesInput, TeamUncheckedCreateWithoutCrosswordGamesInput>
+    where?: TeamWhereInput
+  }
+
+  export type TeamUpdateToOneWithWhereWithoutCrosswordGamesInput = {
+    where?: TeamWhereInput
+    data: XOR<TeamUpdateWithoutCrosswordGamesInput, TeamUncheckedUpdateWithoutCrosswordGamesInput>
+  }
+
+  export type TeamUpdateWithoutCrosswordGamesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    currentLevel?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wikipediaGames?: WikipediaGameStateUpdateManyWithoutTeamNestedInput
+    quizGames?: QuizGameStateUpdateManyWithoutTeamNestedInput
+    imageQuizGames?: ImageQuizGameStateUpdateManyWithoutTeamNestedInput
+  }
+
+  export type TeamUncheckedUpdateWithoutCrosswordGamesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    currentLevel?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wikipediaGames?: WikipediaGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    quizGames?: QuizGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    imageQuizGames?: ImageQuizGameStateUncheckedUpdateManyWithoutTeamNestedInput
+  }
+
+  export type TeamCreateWithoutImageQuizGamesInput = {
+    name: string
+    currentLevel?: string
+    score?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wikipediaGames?: WikipediaGameStateCreateNestedManyWithoutTeamInput
+    quizGames?: QuizGameStateCreateNestedManyWithoutTeamInput
+    crosswordGames?: CrosswordGameStateCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamUncheckedCreateWithoutImageQuizGamesInput = {
+    id?: number
+    name: string
+    currentLevel?: string
+    score?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wikipediaGames?: WikipediaGameStateUncheckedCreateNestedManyWithoutTeamInput
+    quizGames?: QuizGameStateUncheckedCreateNestedManyWithoutTeamInput
+    crosswordGames?: CrosswordGameStateUncheckedCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamCreateOrConnectWithoutImageQuizGamesInput = {
+    where: TeamWhereUniqueInput
+    create: XOR<TeamCreateWithoutImageQuizGamesInput, TeamUncheckedCreateWithoutImageQuizGamesInput>
+  }
+
+  export type TeamUpsertWithoutImageQuizGamesInput = {
+    update: XOR<TeamUpdateWithoutImageQuizGamesInput, TeamUncheckedUpdateWithoutImageQuizGamesInput>
+    create: XOR<TeamCreateWithoutImageQuizGamesInput, TeamUncheckedCreateWithoutImageQuizGamesInput>
+    where?: TeamWhereInput
+  }
+
+  export type TeamUpdateToOneWithWhereWithoutImageQuizGamesInput = {
+    where?: TeamWhereInput
+    data: XOR<TeamUpdateWithoutImageQuizGamesInput, TeamUncheckedUpdateWithoutImageQuizGamesInput>
+  }
+
+  export type TeamUpdateWithoutImageQuizGamesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    currentLevel?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wikipediaGames?: WikipediaGameStateUpdateManyWithoutTeamNestedInput
+    quizGames?: QuizGameStateUpdateManyWithoutTeamNestedInput
+    crosswordGames?: CrosswordGameStateUpdateManyWithoutTeamNestedInput
+  }
+
+  export type TeamUncheckedUpdateWithoutImageQuizGamesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    currentLevel?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wikipediaGames?: WikipediaGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    quizGames?: QuizGameStateUncheckedUpdateManyWithoutTeamNestedInput
+    crosswordGames?: CrosswordGameStateUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type WikipediaGameStateCreateManyTeamInput = {
@@ -5844,6 +9146,25 @@ export namespace Prisma {
   export type QuizGameStateCreateManyTeamInput = {
     id?: number
     questionId: string
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type CrosswordGameStateCreateManyTeamInput = {
+    id?: number
+    timeTaken?: number
+    completed?: boolean
+    isCorrect?: boolean
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type ImageQuizGameStateCreateManyTeamInput = {
+    id?: number
+    imageId: string
     timeTaken?: number
     completed?: boolean
     isCorrect?: boolean
@@ -5902,6 +9223,61 @@ export namespace Prisma {
   export type QuizGameStateUncheckedUpdateManyWithoutTeamInput = {
     id?: IntFieldUpdateOperationsInput | number
     questionId?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CrosswordGameStateUpdateWithoutTeamInput = {
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CrosswordGameStateUncheckedUpdateWithoutTeamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CrosswordGameStateUncheckedUpdateManyWithoutTeamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ImageQuizGameStateUpdateWithoutTeamInput = {
+    imageId?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ImageQuizGameStateUncheckedUpdateWithoutTeamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    imageId?: StringFieldUpdateOperationsInput | string
+    timeTaken?: IntFieldUpdateOperationsInput | number
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    isCorrect?: BoolFieldUpdateOperationsInput | boolean
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ImageQuizGameStateUncheckedUpdateManyWithoutTeamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    imageId?: StringFieldUpdateOperationsInput | string
     timeTaken?: IntFieldUpdateOperationsInput | number
     completed?: BoolFieldUpdateOperationsInput | boolean
     isCorrect?: BoolFieldUpdateOperationsInput | boolean

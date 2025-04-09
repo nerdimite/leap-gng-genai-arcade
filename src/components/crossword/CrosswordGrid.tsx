@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CrosswordGridDisplay } from "./CrosswordGridDisplay";
 import { CrosswordClues } from "./CrosswordClues";
+import { Timer } from "@/components/Timer";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,58 +15,36 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useTeam } from "@/contexts/TeamContext";
 
 type CrosswordGridProps = {
   onComplete: (score: number) => void;
 };
 
-// Sample crossword data based on the provided puzzle image
-const crosswordData = {
-  size: 8,
-  across: [
-    {
-      number: 2,
-      clue: "This Amazon pal lives in your speakers and loves to help... just shout out her name!",
-      answer: "ALEXA",
-      row: 1,
-      col: 0,
-      length: 5,
-    },
-    {
-      number: 3,
-      clue: "This IBM brainiac aced a famous game show, proving AI's got smarts and trivia skills!",
-      answer: "WATSON",
-      row: 4,
-      col: 0,
-      length: 6,
-    },
-  ],
-  down: [
-    {
-      number: 1,
-      clue: "The secret word that makes your smart speaker perk up its digital ears!",
-      answer: "WAKEWORD",
-      row: 0,
-      col: 0,
-      length: 8,
-    },
-    {
-      number: 4,
-      clue: "Wanna chat with Apple's brain? Just say her name!",
-      answer: "SIRI",
-      row: 4,
-      col: 3,
-      length: 4,
-    },
-  ],
-};
+// Define types that match what's expected by the child components
+interface CrosswordWord {
+  number: number;
+  clue: string;
+  answer: string; // Required by the display components but only used for props passing
+  row: number;
+  col: number;
+  length: number;
+}
+
+interface CrosswordDataType {
+  size: number;
+  across: CrosswordWord[];
+  down: CrosswordWord[];
+}
 
 export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
-  const [grid, setGrid] = useState(
-    Array(crosswordData.size)
-      .fill(null)
-      .map(() => Array(crosswordData.size).fill(""))
-  );
+  const { team } = useTeam();
+  const [crosswordData, setCrosswordData] = useState<CrosswordDataType>({
+    size: 8,
+    across: [],
+    down: [],
+  });
+  const [grid, setGrid] = useState<string[][]>([]);
   const [selectedCell, setSelectedCell] = useState<{
     row: number;
     col: number;
@@ -77,6 +56,60 @@ export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
     total: 0,
     score: 0,
   });
+  const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
+  const [gameTime, setGameTime] = useState<number>(0);
+
+  // Fetch crossword data on mount
+  useEffect(() => {
+    const fetchCrosswordData = async () => {
+      try {
+        const response = await fetch("/api/crossword-game/validate");
+        const data = await response.json();
+
+        // Transform the API data to include dummy answer property
+        const transformedData: CrosswordDataType = {
+          size: 8,
+          across: data.across.map(
+            (word: {
+              number: number;
+              clue: string;
+              row: number;
+              col: number;
+              length: number;
+            }) => ({
+              ...word,
+              answer: new Array(word.length).fill("").join(""), // Empty string with the correct length
+            })
+          ),
+          down: data.down.map(
+            (word: {
+              number: number;
+              clue: string;
+              row: number;
+              col: number;
+              length: number;
+            }) => ({
+              ...word,
+              answer: new Array(word.length).fill("").join(""),
+            })
+          ),
+        };
+
+        setCrosswordData(transformedData);
+
+        // Initialize the grid based on the crossword size
+        setGrid(
+          Array(8)
+            .fill(null)
+            .map(() => Array(8).fill(""))
+        );
+      } catch (error) {
+        console.error("Error fetching crossword data:", error);
+      }
+    };
+
+    fetchCrosswordData();
+  }, []);
 
   // This would handle cell click in a real implementation
   const handleCellClick = (row: number, col: number) => {
@@ -222,62 +255,71 @@ export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
     }
   };
 
-  // Check answers against the solution
-  const checkProgress = () => {
-    // Create a matrix to track which cells have been counted
-    const countedCells = Array(crosswordData.size)
-      .fill(null)
-      .map(() => Array(crosswordData.size).fill(false));
+  // Check answers using the API
+  const checkProgress = async () => {
+    try {
+      // Use the timer's tracked time instead of calculating it
+      const timeTaken = gameTime;
 
-    let correct = 0;
-    let total = 0;
+      // Stop the timer when checking answers
+      setIsTimerRunning(false);
 
-    // Check across words
-    crosswordData.across.forEach((word) => {
-      for (let i = 0; i < word.length; i++) {
-        const cell = grid[word.row][word.col + i];
-        const expected = word.answer[i];
-        const isCorrect = cell === expected;
-
-        // Mark this cell as counted
-        if (!countedCells[word.row][word.col + i]) {
-          countedCells[word.row][word.col + i] = true;
-          total++;
-          if (isCorrect) correct++;
-        }
-      }
-    });
-
-    // Check down words
-    crosswordData.down.forEach((word) => {
-      for (let i = 0; i < word.length; i++) {
-        const cell = grid[word.row + i][word.col];
-        const expected = word.answer[i];
-        const isCorrect = cell === expected;
-
-        // Only count cells that haven't been counted yet
-        if (!countedCells[word.row + i][word.col]) {
-          countedCells[word.row + i][word.col] = true;
-          total++;
-          if (isCorrect) correct++;
-        }
-      }
-    });
-
-    const score = Math.round((correct / total) * 100);
-
-    // If everything is correct, complete the puzzle
-    if (correct === total && correct === 20) {
-      // Ensure we have exactly 20 letters
-      onComplete(100);
-    } else {
-      // Show score in dialog instead of alert
-      setScoreDialog({
-        open: true,
-        correct,
-        total,
-        score,
+      // Call validate API
+      const response = await fetch("/api/crossword-game/validate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          grid,
+        }),
       });
+
+      const result = await response.json();
+
+      // Record game state if team is available and puzzle is complete
+      if (team && result.isComplete) {
+        await recordGameState(timeTaken, result.isComplete);
+
+        // Fetch score from the scoring API
+        const scoreResponse = await fetch(
+          `/api/crossword-game/score?teamName=${encodeURIComponent(team.name)}`
+        );
+        const scoreResult = await scoreResponse.json();
+
+        // Pass the timeScore from the new scoring API to the completion handler
+        onComplete(scoreResult.gameResults[0]?.timeScore || 0);
+      } else {
+        // Show score dialog and resume timer if not complete
+        setScoreDialog({
+          open: true,
+          correct: result.correct,
+          total: result.total,
+          score: Math.round((result.correct / result.total) * 100), // Only for progress display
+        });
+        setIsTimerRunning(true);
+      }
+    } catch (error) {
+      console.error("Error checking crossword:", error);
+    }
+  };
+
+  // Record game state
+  const recordGameState = async (timeTaken: number, isCorrect: boolean) => {
+    try {
+      await fetch("/api/crossword-game/record", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          teamName: team?.name,
+          timeTaken,
+          isCorrect,
+        }),
+      });
+    } catch (error) {
+      console.error("Failed to record game state:", error);
     }
   };
 
@@ -320,6 +362,18 @@ export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
       </CardHeader>
 
       <CardContent className="space-y-6">
+        <div className="flex justify-between items-center">
+          <div className="text-lg text-cyan-300 font-bold">
+            AI Crossword Challenge
+          </div>
+          <Timer
+            isRunning={isTimerRunning}
+            initialTime={0}
+            onTimeChange={setGameTime}
+            className="text-white"
+          />
+        </div>
+
         <CrosswordGridDisplay
           grid={grid}
           crosswordData={crosswordData}
@@ -354,7 +408,13 @@ export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
         {/* Score Dialog */}
         <AlertDialog
           open={scoreDialog.open}
-          onOpenChange={(open) => setScoreDialog((prev) => ({ ...prev, open }))}
+          onOpenChange={(open) => {
+            setScoreDialog((prev) => ({ ...prev, open }));
+            // Resume the timer when dialog is closed
+            if (!open) {
+              setIsTimerRunning(true);
+            }
+          }}
         >
           <AlertDialogContent className="bg-gray-800 border-cyan-500 text-white">
             <AlertDialogHeader>

@@ -20,6 +20,8 @@ model Team {
   updatedAt   DateTime  @updatedAt
   wikipediaGames WikipediaGameState[] // Relation to Wikipedia game states
   quizGames      QuizGameState[]      // Relation to Quiz game states
+  crosswordGames CrosswordGameState[] // Relation to Crossword game states
+  imageQuizGames ImageQuizGameState[] // Relation to Image Quiz game states
 }
 
 model WikipediaGameState {
@@ -48,4 +50,31 @@ model QuizGameState {
   team        Team     @relation(fields: [teamName], references: [name]) // Relation to Team
 
   @@unique([teamName, questionId]) // Composite unique constraint for lookups
+}
+
+model CrosswordGameState {
+  id          Int      @id @default(autoincrement())
+  teamName    String   // Team name reference
+  timeTaken   Int      @default(0) // Time taken in seconds
+  completed   Boolean  @default(false) // Whether the round was completed
+  isCorrect   Boolean  @default(false) // Whether the answer was correct
+  startedAt   DateTime @default(now()) // When the round was started
+  completedAt DateTime? // When the round was completed (nullable)
+  team        Team     @relation(fields: [teamName], references: [name]) // Relation to Team
+
+  @@unique([teamName]) // Ensure only one crossword game state per team
+}
+
+model ImageQuizGameState {
+  id          Int      @id @default(autoincrement())
+  teamName    String   // Team name reference
+  imageId     String   // Image ID for this question
+  timeTaken   Int      @default(0) // Time taken in seconds
+  completed   Boolean  @default(false) // Whether the round was completed
+  isCorrect   Boolean  @default(false) // Whether the answer was correct
+  startedAt   DateTime @default(now()) // When the round was started
+  completedAt DateTime? // When the round was completed (nullable)
+  team        Team     @relation(fields: [teamName], references: [name]) // Relation to Team
+
+  @@unique([teamName, imageId]) // Composite unique constraint for lookups
 }

@@ -9,12 +9,13 @@ import { IconArrowLeft } from "@tabler/icons-react";
 
 // Updated game rules for AI Trivia Challenge
 const gameRules = [
-  "You will be presented with 5 challenging questions about AI history and technology.",
+  "You will be presented with challenging questions about AI history and technology.",
   "You have 10 seconds to answer each question.",
   "Type your answer in the input field and submit.",
   "If you don't answer in time, the question will be marked as incorrect.",
   "Each correct answer earns you points.",
   "Try to answer all questions correctly to achieve the highest score!",
+  "The number of questions is a mystery until you reach the end!",
 ];
 
 // Game states
@@ -26,7 +27,7 @@ export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] =
     useState<ApiQuestionData | null>(null);
   const [questionNumber, setQuestionNumber] = useState(1);
-  const [totalQuestions, setTotalQuestions] = useState(5);
+  const [totalQuestions, setTotalQuestions] = useState(0);
   const [score, setScore] = useState(0);
   const router = useRouter();
 
@@ -40,12 +41,6 @@ export default function QuizPage() {
         setCurrentQuestionId(data.quizId);
         setCurrentQuestion(data);
         setQuestionNumber(1);
-        // Count total questions by checking how many are in our API
-        const allQuizzesResponse = await fetch("/api/quiz-game/validate");
-        const allQuizzesData = await allQuizzesResponse.json();
-        if (allQuizzesData.order && allQuizzesData.isFinal) {
-          setTotalQuestions(allQuizzesData.order);
-        }
       } else {
         console.error("No quiz data returned from API");
       }
@@ -66,6 +61,7 @@ export default function QuizPage() {
 
       if (data.noMoreQuizzes) {
         // No more questions, show results
+        setTotalQuestions(questionNumber); // Set total questions to the number we've completed
         setGameState("results");
       } else if (data.quizId) {
         setCurrentQuestionId(data.quizId);
@@ -75,6 +71,7 @@ export default function QuizPage() {
     } catch (error) {
       console.error("Error loading next question:", error);
       // Switch to results if we can't load the next question
+      setTotalQuestions(questionNumber); // Set total questions to the number we've completed
       setGameState("results");
     }
   };
@@ -98,6 +95,7 @@ export default function QuizPage() {
     setCurrentQuestionId("");
     setCurrentQuestion(null);
     setQuestionNumber(1);
+    setTotalQuestions(0);
   };
 
   const handleBackToMenu = () => {
@@ -128,7 +126,7 @@ export default function QuizPage() {
           data={currentQuestion}
           onAnswer={handleAnswer}
           currentQuestion={questionNumber}
-          totalQuestions={totalQuestions}
+          totalQuestions={currentQuestion.isFinal ? questionNumber : "?"}
         />
       )}
 

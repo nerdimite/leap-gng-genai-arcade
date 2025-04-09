@@ -1,26 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IconHelpCircle, IconArrowRight } from "@tabler/icons-react";
 import Image from "next/image";
-import { validateAnswer } from "@/utils/answerValidation";
+import { Progress } from "@/components/ui/progress";
+
+// Countdown timer constant
+const QUESTION_TIMER = 15; // 15 seconds per question
 
 type ImageQuestionData = {
   id: number;
   imageUrl: string;
-  correctAnswer: string;
-  acceptableAnswers: string[];
   hint: string;
+  question?: string; // Make question optional to match API response
 };
 
 type ImageQuestionProps = {
   data: ImageQuestionData;
-  onAnswer: (isCorrect: boolean) => void;
+  onAnswer: (answer: string) => void; // Changed to pass string answer
   currentQuestion: number;
-  totalQuestions: number;
+  totalQuestions: number | string; // Accept string for "?" case
 };
 
 export function ImageQuestion({
@@ -40,6 +42,59 @@ export function ImageQuestion({
     correct: false,
     message: "",
   });
+  const [timeLeft, setTimeLeft] = useState(QUESTION_TIMER);
+  const startTimeRef = useRef(Date.now());
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Start the timer when the component mounts or when the question changes
+  useEffect(() => {
+    // Clear any existing timer
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    // Don't start timer if feedback is being shown
+    if (feedback.show) return;
+
+    startTimeRef.current = Date.now();
+
+    // Set up the countdown timer
+    timerRef.current = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      const remaining = Math.max(0, QUESTION_TIMER - elapsed);
+      setTimeLeft(remaining);
+
+      // Automatically submit empty answer if time runs out
+      if (remaining === 0 && !feedback.show) {
+        clearInterval(timerRef.current!);
+        handleTimeUp();
+      }
+    }, 1000);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [data, feedback.show]);
+
+  const handleTimeUp = () => {
+    // Show timeout feedback
+    setFeedback({
+      show: true,
+      correct: false,
+      message: "Time's up! Moving to the next question...",
+    });
+
+    // Wait a bit before moving to the next question
+    setTimeout(() => {
+      onAnswer(""); // Pass empty answer as timeout
+      setUserAnswer("");
+      setShowHint(false);
+      setFeedback({ show: false, correct: false, message: "" });
+      setTimeLeft(QUESTION_TIMER);
+    }, 2000);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,29 +102,18 @@ export function ImageQuestion({
     // Don't process empty answers
     if (!userAnswer.trim()) return;
 
-    // Use the validation utility with flexible matching
-    const isCorrect = validateAnswer(
-      userAnswer,
-      data.acceptableAnswers,
-      "flexible"
-    );
+    // Stop the timer
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
 
-    // Show feedback
-    setFeedback({
-      show: true,
-      correct: isCorrect,
-      message: isCorrect
-        ? "Correct! Well done!"
-        : "Sorry, that's not right. Try again on the next one!",
-    });
+    // Submit the answer to parent component for API validation
+    onAnswer(userAnswer);
 
-    // Wait a bit before moving to the next question
-    setTimeout(() => {
-      onAnswer(isCorrect);
-      setUserAnswer("");
-      setShowHint(false);
-      setFeedback({ show: false, correct: false, message: "" });
-    }, 2000);
+    // Clear the input and reset state
+    setUserAnswer("");
+    setShowHint(false);
+    setTimeLeft(QUESTION_TIMER);
   };
 
   return (
@@ -79,16 +123,25 @@ export function ImageQuestion({
           <h2 className="text-xl text-cyan-300 font-semibold">
             Question {currentQuestion}/{totalQuestions}
           </h2>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-cyan-300 hover:text-cyan-100 hover:bg-gray-700"
-            onClick={() => setShowHint(!showHint)}
-          >
-            <IconHelpCircle className="w-5 h-5 mr-1" />
-            {showHint ? "Hide Hint" : "Show Hint"}
-          </Button>
+          <span className="text-gray-300">Time left: {timeLeft}s</span>
         </div>
+
+        <div className="mb-4">
+          <Progress
+            value={(timeLeft / QUESTION_TIMER) * 100}
+            className="h-2 bg-gray-700 [&>*]:bg-cyan-500"
+          />
+        </div>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-cyan-300 hover:text-cyan-100 hover:bg-gray-700 ml-auto block mb-2"
+          onClick={() => setShowHint(!showHint)}
+        >
+          <IconHelpCircle className="w-5 h-5 mr-1" />
+          {showHint ? "Hide Hint" : "Show Hint"}
+        </Button>
 
         {/* Image container */}
         <div className="w-full relative mb-6 bg-gray-900 rounded-md overflow-hidden">
@@ -120,7 +173,7 @@ export function ImageQuestion({
                 htmlFor="answer"
                 className="block text-lg mb-2 text-cyan-200"
               >
-                What is this?
+                {data.question || "What is this?"}
               </label>
               <div className="flex gap-2">
                 <Input

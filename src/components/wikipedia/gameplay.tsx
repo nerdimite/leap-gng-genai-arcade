@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -14,10 +14,10 @@ import {
   IconTrophy,
   IconArrowRight,
 } from "@tabler/icons-react";
-import ReactConfetti from "react-confetti";
 import { useRouter } from "next/navigation";
 import { useTeam } from "@/contexts/TeamContext";
 import { Timer } from "@/components/Timer";
+import { WikipediaResult } from "./WikipediaResult";
 
 type WikipediaGameplayProps = {
   onRestart: () => void;
@@ -27,18 +27,18 @@ type GameConfig = {
   gameId: string;
   startPage: string;
   hint: string;
-  isFinal: boolean;
   order: number;
+  isFinal: boolean;
+  noMoreGames?: boolean;
 };
 
 export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
   const router = useRouter();
-  const { team, updateTeamLevel } = useTeam();
+  const { team } = useTeam();
   const [clicks, setClicks] = useState(0);
   const [currentPage, setCurrentPage] = useState("");
   const [targetHint, setTargetHint] = useState("");
   const [gameId, setGameId] = useState<string>("");
-  const [isFinalRound, setIsFinalRound] = useState(false);
   const [roundNumber, setRoundNumber] = useState(1);
   const totalRounds = 3; // Use a constant instead of state since we don't change it
 
@@ -56,19 +56,12 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
 
   // Game state
   const [gameCompleted, setGameCompleted] = useState(false);
-  const [showWinDialog, setShowWinDialog] = useState(false);
-  const [confettiPieces, setConfettiPieces] = useState(0);
-  const [targetPage, setTargetPage] = useState("");
+  const [showRoundCompleteDialog, setShowRoundCompleteDialog] = useState(false);
+  const [currentTargetPage, setCurrentTargetPage] = useState("");
 
   // Track visited pages history
   const [pageHistory, setPageHistory] = useState<string[]>([]);
   const [historyOpen, setHistoryOpen] = useState(false);
-
-  // Window dimensions for confetti
-  const [windowDimensions, setWindowDimensions] = useState({
-    width: typeof window !== "undefined" ? window.innerWidth : 0,
-    height: typeof window !== "undefined" ? window.innerHeight : 0,
-  });
 
   // Initialize game configuration
   useEffect(() => {
@@ -87,7 +80,6 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
           setCurrentPage(data.startPage);
           setTargetHint(data.hint);
           setPageHistory([data.startPage]);
-          setIsFinalRound(data.isFinal);
           setRoundNumber(data.order);
           setPageLoaded(false); // Reset page loaded state for new round
           setIsTimerRunning(false); // Make sure timer is paused until page loads
@@ -105,19 +97,6 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
 
     initializeGame();
   }, [gameId]); // Only re-run when gameId changes
-
-  // Update window dimensions on resize
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   // Check if reached target page via API
   useEffect(() => {
@@ -139,38 +118,23 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
         const data = await response.json();
 
         if (data.isCorrect) {
-          setGameCompleted(true);
-          setShowWinDialog(true);
-          setTargetPage(data.targetPage || "");
-          setIsFinalRound(data.isFinal);
-          setIsTimerRunning(false);
-
           // Record game state if team is available
           if (team) {
             recordGameState(data.targetPage, clicks, gameTime);
           }
 
-          // Only show confetti if this is the final round
+          // Stop the timer
+          setIsTimerRunning(false);
+
+          // Save the current target page for display
+          setCurrentTargetPage(data.targetPage || "");
+
+          // If it's the final round, show the final results screen
           if (data.isFinal) {
-            // Start with more confetti for bigger impact
-            setConfettiPieces(1000);
-
-            // Gradually reduce confetti pieces for fade-out effect
-            const startFadeOut = () => {
-              const fadeInterval = setInterval(() => {
-                setConfettiPieces((prev) => {
-                  const newValue = prev - 50;
-                  if (newValue <= 0) {
-                    clearInterval(fadeInterval);
-                    return 0;
-                  }
-                  return newValue;
-                });
-              }, 100);
-            };
-
-            // Start fade out after 5 seconds of full celebration
-            setTimeout(startFadeOut, 5000);
+            setGameCompleted(true);
+          } else {
+            // For non-final rounds, show the round completion dialog
+            setShowRoundCompleteDialog(true);
           }
         }
       } catch (error) {
@@ -241,11 +205,13 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
         } else {
           isFirstLoad.current = false;
         }
-      } else if (event.data && event.data.type === "WIKI_PAGE_LOADED") {
+      }
+
+      if (event.data && event.data.type === "WIKI_PAGE_LOADED") {
         // Resume timer once page is loaded
         setPageLoaded(true);
 
-        if (!gameCompleted) {
+        if (!gameCompleted && !showRoundCompleteDialog) {
           setIsTimerRunning(true);
 
           // If this was an automatic page load navigation, skip the next click count
@@ -261,41 +227,13 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, [gameCompleted]);
-
-  // Handle game completion and update team level
-  const completeGameAndUpdateLevel = useCallback(async () => {
-    try {
-      if (team) {
-        // Increment team level when game is completed
-        await updateTeamLevel((parseInt(team.currentLevel) + 1).toString());
-        console.log("Team level updated successfully");
-      }
-    } catch (error) {
-      console.error("Failed to update team level:", error);
-    }
-  }, [team, updateTeamLevel]);
-
-  // Handle navigation to Glitch and Giggle (after completing all rounds)
-  const navigateToGlitchAndGiggle = async () => {
-    // Update level when completing the final round
-    if (isFinalRound) {
-      await completeGameAndUpdateLevel();
-    }
-    router.push("/glitch-and-giggle");
-  };
+  }, [gameCompleted, showRoundCompleteDialog]);
 
   // Handle when user manually quits to main menu via the restart button
-  const handleRestart = async () => {
-    // If user has completed at least 1 round, update their level
-    if (roundNumber > 1) {
-      await completeGameAndUpdateLevel();
-    }
-
+  const handleRestart = () => {
     setClicks(0);
     setGameCompleted(false);
-    setConfettiPieces(0);
-    setTargetPage("");
+    setShowRoundCompleteDialog(false);
     setGameId(""); // Reset to get the first game
     isFirstLoad.current = true;
     lastClickTime.current = 0;
@@ -310,6 +248,9 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
   // Handle navigation to next round
   const handleNextRound = async () => {
     try {
+      // Close the round complete dialog
+      setShowRoundCompleteDialog(false);
+
       // Get the next game configuration
       const response = await fetch(
         `/api/wikipedia-game/validate?getNextGame=${gameId}`
@@ -325,8 +266,6 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
       // Reset game state for the next round
       setClicks(0);
       setGameCompleted(false);
-      setShowWinDialog(false);
-      setTargetPage("");
       isFirstLoad.current = true;
       lastClickTime.current = 0;
       setGameId(data.gameId);
@@ -342,30 +281,25 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
     }
   };
 
-  return (
-    <div className="bg-gray-800 border-4 border-gray-700 rounded-lg p-6 max-w-4xl mx-auto">
-      {/* Confetti overlay with dynamic piece count for fading */}
-      {confettiPieces > 0 && (
-        <ReactConfetti
-          width={windowDimensions.width}
-          height={windowDimensions.height}
-          recycle={true}
-          numberOfPieces={confettiPieces}
-          gravity={0.15}
-          opacity={confettiPieces / 500} // Also fade opacity as pieces reduce
-          colors={["#f3cc30", "#71f6ff", "#ff71a3", "#01c0f0", "#8a86e9"]}
-        />
-      )}
+  // If game is completed, show the final result component
+  if (gameCompleted) {
+    return (
+      <WikipediaResult
+        clicks={clicks}
+        timeTaken={gameTime}
+        totalRounds={totalRounds}
+        onRestart={handleRestart}
+      />
+    );
+  }
 
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-[family-name:var(--font-vt323)] text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">
-          WIKIPEDIA SPEED RUN CHALLENGE
-        </h2>
-        <div className="bg-yellow-400 p-2 rounded-md">
-          <p className="font-[family-name:var(--font-vt323)] text-black">
-            TARGET HINT: <span className="font-bold">{targetHint}</span>
-          </p>
-        </div>
+  return (
+    <div className="w-full max-w-4xl mx-auto relative">
+      {/* Target hint display */}
+      <div className="bg-yellow-400 p-2 rounded-md mb-4">
+        <p className="font-[family-name:var(--font-vt323)] text-black">
+          TARGET HINT: <span className="font-bold">{targetHint}</span>
+        </p>
       </div>
 
       <div className="bg-gray-900 rounded-lg p-3 mb-4">
@@ -475,61 +409,57 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
         </DialogContent>
       </Dialog>
 
-      {/* Win Dialog */}
-      <Dialog open={showWinDialog} onOpenChange={setShowWinDialog}>
-        <DialogContent className="bg-gray-800 border-2 border-yellow-500 text-white max-w-md">
+      {/* Round Complete Dialog */}
+      <Dialog
+        open={showRoundCompleteDialog}
+        onOpenChange={setShowRoundCompleteDialog}
+      >
+        <DialogContent className="bg-gray-800 border-2 border-cyan-500 text-white max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-[family-name:var(--font-vt323)] text-yellow-400 flex items-center justify-center gap-2">
+            <DialogTitle className="text-xl font-[family-name:var(--font-vt323)] text-cyan-300 flex items-center justify-center gap-2">
               <IconTrophy className="text-yellow-400" />
-              {isFinalRound ? "GAME COMPLETE!" : "ROUND COMPLETE!"}
+              ROUND COMPLETE!
               <IconTrophy className="text-yellow-400" />
             </DialogTitle>
           </DialogHeader>
           <div className="py-4 text-center">
             <p className="text-white mb-4 text-lg">
-              You found the {targetPage} page!
+              You found the{" "}
+              <span className="text-cyan-300 font-bold">
+                {currentTargetPage.replace(/_/g, " ")}
+              </span>{" "}
+              page!
             </p>
-            <div className="bg-gray-900 p-4 rounded mb-6">
-              {team && (
-                <p className="text-gray-300">
-                  Team:{" "}
-                  <span className="text-green-400 font-bold">{team.name}</span>
-                </p>
-              )}
-              <p className="text-gray-300">
-                Round:{" "}
-                <span className="text-purple-400 font-bold">
+            <div className="bg-gray-700 p-4 rounded mb-6 grid grid-cols-3 gap-3">
+              <div className="text-center">
+                <div className="text-purple-400 text-xl font-bold">
                   {roundNumber}/{totalRounds}
-                </span>
-              </p>
-              <p className="text-gray-300">
-                Clicks:{" "}
-                <span className="text-yellow-400 font-bold">{clicks}</span>
-              </p>
-              <p className="text-gray-300">
-                Time:{" "}
-                <span className="text-cyan-400 font-bold">
-                  {gameTime} seconds
-                </span>
-              </p>
+                </div>
+                <div className="text-xs text-gray-300">ROUND</div>
+              </div>
+
+              <div className="text-center">
+                <div className="text-yellow-400 text-xl font-bold">
+                  {clicks}
+                </div>
+                <div className="text-xs text-gray-300">CLICKS</div>
+              </div>
+
+              <div className="text-center">
+                <div className="text-cyan-400 text-xl font-bold">
+                  {gameTime}
+                </div>
+                <div className="text-xs text-gray-300">SECONDS</div>
+              </div>
             </div>
 
-            {isFinalRound ? (
-              <Button
-                onClick={navigateToGlitchAndGiggle}
-                className="bg-green-500 hover:bg-green-600 text-black font-medium"
-              >
-                Back to Arcade
-              </Button>
-            ) : (
-              <Button
-                onClick={handleNextRound}
-                className="bg-yellow-500 hover:bg-yellow-600 text-black font-medium flex items-center gap-2"
-              >
-                <span>Next Round</span>
-                <IconArrowRight size={18} />
-              </Button>
-            )}
+            <Button
+              onClick={handleNextRound}
+              className="px-8 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white font-bold flex items-center gap-2"
+            >
+              NEXT ROUND
+              <IconArrowRight size={20} />
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

@@ -145,6 +145,27 @@ exports.Prisma.QuizGameStateScalarFieldEnum = {
   completedAt: 'completedAt'
 };
 
+exports.Prisma.CrosswordGameStateScalarFieldEnum = {
+  id: 'id',
+  teamName: 'teamName',
+  timeTaken: 'timeTaken',
+  completed: 'completed',
+  isCorrect: 'isCorrect',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt'
+};
+
+exports.Prisma.ImageQuizGameStateScalarFieldEnum = {
+  id: 'id',
+  teamName: 'teamName',
+  imageId: 'imageId',
+  timeTaken: 'timeTaken',
+  completed: 'completed',
+  isCorrect: 'isCorrect',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -159,7 +180,9 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Team: 'Team',
   WikipediaGameState: 'WikipediaGameState',
-  QuizGameState: 'QuizGameState'
+  QuizGameState: 'QuizGameState',
+  CrosswordGameState: 'CrosswordGameState',
+  ImageQuizGameState: 'ImageQuizGameState'
 };
 
 /**

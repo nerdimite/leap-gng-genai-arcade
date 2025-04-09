@@ -1,97 +1,134 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { RulesCard } from "@/components/RulesCard";
 import { ImageQuestion } from "@/components/image-quiz/ImageQuestion";
-import { Result } from "@/components/quiz/Result";
+import { GameResultsBase } from "@/components/GameResultsBase";
 import { IconArrowLeft } from "@tabler/icons-react";
-
-// Image quiz questions data
-const imageQuizData = [
-  {
-    id: 1,
-    imageUrl: "/images/placeholder-1.jpg", // Placeholder - will be replaced
-    correctAnswer: "neural network",
-    acceptableAnswers: ["neural network", "deep learning", "neural net"],
-    hint: "This architecture forms the backbone of modern AI systems",
-  },
-  {
-    id: 2,
-    imageUrl: "/images/placeholder-2.jpg", // Placeholder - will be replaced
-    correctAnswer: "gpt",
-    acceptableAnswers: ["gpt", "transformer", "language model", "llm"],
-    hint: "This revolutionary architecture changed how AI understands language",
-  },
-  {
-    id: 3,
-    imageUrl: "/images/placeholder-3.jpg", // Placeholder - will be replaced
-    correctAnswer: "computer vision",
-    acceptableAnswers: [
-      "computer vision",
-      "image recognition",
-      "object detection",
-    ],
-    hint: "This field enables machines to 'see' the world like we do",
-  },
-  {
-    id: 4,
-    imageUrl: "/images/placeholder-4.jpg", // Placeholder - will be replaced
-    correctAnswer: "generative ai",
-    acceptableAnswers: ["generative ai", "generative model", "gen ai"],
-    hint: "This type of AI creates new content rather than just analyzing existing data",
-  },
-  {
-    id: 5,
-    imageUrl: "/images/placeholder-5.jpg", // Placeholder - will be replaced
-    correctAnswer: "robotics",
-    acceptableAnswers: ["robotics", "robot", "automation"],
-    hint: "This field combines AI with physical interaction in the real world",
-  },
-];
+import { useTeam } from "@/contexts/TeamContext";
 
 // Game rules
 const gameRules = [
-  "You will be shown 5 AI-related images.",
+  "You will be shown AI-related images.",
   "Type your answer in the text box provided.",
   "Be specific but don't worry about exact wording - we accept multiple variations of the correct answer.",
   "You can use the hint button if you're stuck, but try without it first!",
   "Each correct answer earns you points.",
-  "Try to get all 5 correct to achieve the highest score.",
+  "Try to get all correct to achieve the highest score.",
+  "You have 15 seconds to answer each question.",
 ];
 
 // Game states
 type GameState = "rules" | "playing" | "results";
 
+// Image quiz question interface
+interface ImageQuizQuestion {
+  imageId: string;
+  imageUrl: string;
+  question: string;
+  hint?: string;
+  isFinal: boolean;
+  order: number;
+}
+
 export default function ImageQuizPage() {
   const [gameState, setGameState] = useState<GameState>("rules");
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestion, setCurrentQuestion] =
+    useState<ImageQuizQuestion | null>(null);
   const [score, setScore] = useState(0);
+  const { team } = useTeam();
+  const [totalQuestions, setTotalQuestions] = useState(0);
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [startTime, setStartTime] = useState<number>(0);
   const router = useRouter();
+
+  // Function to fetch the first or next question
+  const fetchQuestion = useCallback(async (currentImageId?: string) => {
+    try {
+      const url = currentImageId
+        ? `/api/image-quiz-game/validate?getNextImage=${currentImageId}`
+        : "/api/image-quiz-game/validate";
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.noMoreQuizzes) {
+        // No more questions, show results
+        setGameState("results");
+        return;
+      }
+
+      setCurrentQuestion(data);
+      setStartTime(Date.now());
+    } catch (error) {
+      console.error("Error fetching image quiz question:", error);
+    }
+  }, []);
+
+  // Initial fetch when game starts
+  useEffect(() => {
+    if (gameState === "playing" && !currentQuestion) {
+      fetchQuestion();
+    }
+  }, [gameState, currentQuestion, fetchQuestion]);
 
   const handleStartGame = () => {
     setGameState("playing");
-    setCurrentQuestionIndex(0);
     setScore(0);
+    setQuestionsAnswered(0);
+    setTotalQuestions(0); // This will be incremented as we go
+    fetchQuestion();
   };
 
-  const handleAnswer = (isCorrect: boolean) => {
-    if (isCorrect) {
-      setScore((prev) => prev + 1);
-    }
+  const handleAnswer = async (answer: string) => {
+    if (!currentQuestion || !team) return;
 
-    // Move to next question or results
-    if (currentQuestionIndex < imageQuizData.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-    } else {
-      setGameState("results");
-    }
-  };
+    try {
+      // Calculate time taken
+      const timeTaken = Math.floor((Date.now() - startTime) / 1000);
 
-  const handleRestart = () => {
-    setGameState("rules");
-    setCurrentQuestionIndex(0);
-    setScore(0);
+      // Validate the answer
+      const validateResponse = await fetch("/api/image-quiz-game/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          answer,
+          imageId: currentQuestion.imageId,
+        }),
+      });
+
+      const validateData = await validateResponse.json();
+      const isCorrect = validateData.isCorrect;
+
+      // Record the game state
+      await fetch("/api/image-quiz-game/record", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          teamName: team.name,
+          imageId: currentQuestion.imageId,
+          timeTaken,
+          isCorrect,
+        }),
+      });
+
+      // Update score and questions answered
+      if (isCorrect) {
+        setScore((prev) => prev + 1);
+      }
+      setQuestionsAnswered((prev) => prev + 1);
+      setTotalQuestions((prev) => Math.max(prev, questionsAnswered + 1));
+
+      // Get the next question or show results
+      if (!validateData.isFinal) {
+        fetchQuestion(currentQuestion.imageId);
+      } else {
+        setGameState("results");
+      }
+    } catch (error) {
+      console.error("Error processing answer:", error);
+    }
   };
 
   const handleBackToMenu = () => {
@@ -117,20 +154,33 @@ export default function ImageQuizPage() {
         />
       )}
 
-      {gameState === "playing" && (
+      {gameState === "playing" && currentQuestion && (
         <ImageQuestion
-          data={imageQuizData[currentQuestionIndex]}
+          data={{
+            id: currentQuestion.order,
+            imageUrl: currentQuestion.imageUrl,
+            hint: currentQuestion.hint || "",
+            question: currentQuestion.question,
+          }}
           onAnswer={handleAnswer}
-          currentQuestion={currentQuestionIndex + 1}
-          totalQuestions={imageQuizData.length}
+          currentQuestion={questionsAnswered + 1}
+          totalQuestions={currentQuestion.isFinal ? questionsAnswered + 1 : "?"}
         />
       )}
 
       {gameState === "results" && (
-        <Result
+        <GameResultsBase
           score={score}
-          totalQuestions={imageQuizData.length}
-          onRestart={handleRestart}
+          maxScore={totalQuestions}
+          currentGameLevel={4} // Visual Puzzler is level 4
+          title="Visual Challenge Complete!"
+          hideBackToLevels={false}
+          feedbackMessages={{
+            excellent: "Excellent! You really know your AI visuals!",
+            good: "Good job! You have a good eye for AI technologies!",
+            average: "Not bad! Keep studying those AI diagrams!",
+            poor: "Time to brush up on your AI visual recognition!",
+          }}
         />
       )}
     </div>

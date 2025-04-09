@@ -36,7 +36,7 @@ type QuestionProps = {
   data: ApiQuestionData;
   onAnswer: (isCorrect: boolean) => void;
   currentQuestion: number;
-  totalQuestions: number;
+  totalQuestions: number | string;
 };
 
 // Constants
