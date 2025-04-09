@@ -32,22 +32,22 @@ export default function GlitchAndGigglePage() {
       id: 2,
       title: "Neural Blitz",
       description: "Rapid fire questions about AI to put you to the test",
-      locked: true,
+      locked: false,
       link: "/glitch-and-giggle/quiz",
     },
     {
       id: 3,
       title: "Prompt Puzzler",
       description: "Not your ordinary monday crossword",
-      locked: true,
+      locked: false,
       link: "/glitch-and-giggle/crossword",
     },
     {
       id: 4,
-      title: "Image Classification",
+      title: "Visual Puzzler",
       description: "Recognize the AI concepts illustrated in the image",
-      locked: true,
-      link: "/glitch-and-giggle/picture-puzzle",
+      locked: false,
+      link: "/glitch-and-giggle/images",
     },
   ];
 

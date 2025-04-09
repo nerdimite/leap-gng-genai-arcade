@@ -250,7 +250,7 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
             <Button
               onClick={handleRestart}
               variant="outline"
-              className="border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black"
+              className="border-yellow-500 text-yellow-800 hover:bg-yellow-500 hover:text-black"
             >
               Play Again
             </Button>
