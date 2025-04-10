@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  getOrCreateTeam,
-  updateTeamScore,
-  updateTeamLevel,
-  getLeaderboard,
-} from "@/lib/db";
+import { getOrCreateTeam, updateTeamScore, updateTeamLevel } from "@/lib/db";
 
 /**
  * GET /api/team?name=teamName
@@ -35,11 +30,11 @@ export async function GET(request: NextRequest) {
 
 /**
  * POST /api/team
- * Update team score or level
+ * Update team level
  */
 export async function POST(request: NextRequest) {
   try {
-    const { teamName, score, level } = await request.json();
+    const { teamName, level } = await request.json();
 
     if (!teamName) {
       return NextResponse.json(
@@ -50,9 +45,25 @@ export async function POST(request: NextRequest) {
 
     let team;
 
-    // Update score if provided
-    if (score !== undefined) {
-      team = await updateTeamScore(teamName, score);
+    // Recalculate the total score by fetching from leaderboard API
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
+      const leaderboardResponse = await fetch(`${baseUrl}/api/leaderboard`);
+
+      if (leaderboardResponse.ok) {
+        const leaderboardData = await leaderboardResponse.json();
+        const teamData = leaderboardData.teams.find(
+          (t: { name: string; totalScore: number }) => t.name === teamName
+        );
+
+        if (teamData) {
+          // Update the team's score with the total score from leaderboard
+          team = await updateTeamScore(teamName, teamData.totalScore);
+        }
+      }
+    } catch (error) {
+      console.error("Error updating team score from leaderboard:", error);
+      // Continue without failing the whole request
     }
 
     // Update level if provided

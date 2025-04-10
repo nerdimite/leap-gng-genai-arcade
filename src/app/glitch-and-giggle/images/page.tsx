@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
@@ -37,11 +38,42 @@ export default function ImageQuizPage() {
   const [currentQuestion, setCurrentQuestion] =
     useState<ImageQuizQuestion | null>(null);
   const [score, setScore] = useState(0);
+  const [finalScore, setFinalScore] = useState<number>(0);
   const { team } = useTeam();
-  const [totalQuestions, setTotalQuestions] = useState(0);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [startTime, setStartTime] = useState<number>(0);
   const router = useRouter();
+  const currentGameLevel = 3; // Visual Puzzler is level 3
+
+  // Get score from the API when game state changes to results
+  useEffect(() => {
+    console.log("gameState", gameState);
+    if (gameState === "results" && team) {
+      console.log("getScore");
+      getScore();
+    }
+  }, [gameState, team]);
+
+  // Function to get score from the API
+  const getScore = async () => {
+    try {
+      const response = await fetch(
+        `/api/image-quiz-game/score?teamName=${encodeURIComponent(
+          team?.name ?? ""
+        )}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setFinalScore(data.totalScore);
+      } else {
+        console.error("Failed to fetch score");
+        setFinalScore(score);
+      }
+    } catch (error) {
+      console.error("Error fetching score:", error);
+      setFinalScore(score);
+    }
+  };
 
   // Function to fetch the first or next question
   const fetchQuestion = useCallback(async (currentImageId?: string) => {
@@ -76,8 +108,8 @@ export default function ImageQuizPage() {
   const handleStartGame = () => {
     setGameState("playing");
     setScore(0);
+    setFinalScore(0);
     setQuestionsAnswered(0);
-    setTotalQuestions(0); // This will be incremented as we go
     fetchQuestion();
   };
 
@@ -118,7 +150,6 @@ export default function ImageQuizPage() {
         setScore((prev) => prev + 1);
       }
       setQuestionsAnswered((prev) => prev + 1);
-      setTotalQuestions((prev) => Math.max(prev, questionsAnswered + 1));
 
       // Get the next question or show results
       if (!validateData.isFinal) {
@@ -159,7 +190,7 @@ export default function ImageQuizPage() {
           data={{
             id: currentQuestion.order,
             imageUrl: currentQuestion.imageUrl,
-            hint: currentQuestion.hint || "",
+            hint: currentQuestion.hint ?? "",
             question: currentQuestion.question,
           }}
           onAnswer={handleAnswer}
@@ -170,9 +201,8 @@ export default function ImageQuizPage() {
 
       {gameState === "results" && (
         <GameResultsBase
-          score={score}
-          maxScore={totalQuestions}
-          currentGameLevel={4} // Visual Puzzler is level 4
+          score={finalScore}
+          currentGameLevel={currentGameLevel}
           title="Visual Challenge Complete!"
           hideBackToLevels={false}
           feedbackMessages={{

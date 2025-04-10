@@ -35,8 +35,7 @@ export function WikipediaResult({
   onRestart,
 }: Readonly<WikipediaResultProps>) {
   // Wikipedia game is level 1
-  const currentGameLevel = 1;
-  const maxScore = 100;
+  const currentGameLevel = 4;
   const { team } = useTeam();
   const [scoreData, setScoreData] = useState<ScoreData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -81,7 +80,6 @@ export function WikipediaResult({
     return (
       <GameResultsBase
         score={0}
-        maxScore={maxScore}
         currentGameLevel={currentGameLevel}
         title="CALCULATING SCORE..."
         feedbackMessages={feedbackMessages}
@@ -101,7 +99,6 @@ export function WikipediaResult({
   return (
     <GameResultsBase
       score={score}
-      maxScore={maxScore * totalRounds}
       currentGameLevel={currentGameLevel}
       title="GAME COMPLETE!"
       feedbackMessages={feedbackMessages}
@@ -112,50 +109,6 @@ export function WikipediaResult({
           Congratulations! You&apos;ve completed all Wikipedia navigation
           challenges!
         </p>
-
-        <div className="bg-gray-700 p-6 rounded-xl w-full flex justify-around">
-          <div className="text-center">
-            <IconTrophy size={32} className="text-yellow-400 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-white">{score}</div>
-            <div className="text-sm text-gray-300">POINTS</div>
-          </div>
-
-          <div className="text-center">
-            <div className="text-purple-400 text-2xl font-bold mb-2">
-              {scoreData?.roundsCompleted || 0}/{totalRounds}
-            </div>
-            <div className="text-sm text-gray-300">ROUNDS COMPLETED</div>
-          </div>
-
-          <div className="text-center">
-            <div className="text-yellow-400 text-2xl font-bold mb-2">
-              {lastRound?.clicks || clicks}
-            </div>
-            <div className="text-sm text-gray-300">FINAL CLICKS</div>
-          </div>
-
-          <div className="text-center">
-            <div className="text-cyan-400 text-2xl font-bold mb-2">
-              {lastRound?.timeTaken || timeTaken}
-            </div>
-            <div className="text-sm text-gray-300">SECONDS</div>
-          </div>
-        </div>
-
-        <div className="bg-gray-700 p-4 rounded-md w-full">
-          <h3 className="text-xl text-cyan-400 mb-2">Final Performance</h3>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="text-gray-300">Time Score:</div>
-            <div className="text-white font-medium">
-              {lastRound?.timeScore.toFixed(0) || 0}/50
-            </div>
-
-            <div className="text-gray-300">Efficiency Score:</div>
-            <div className="text-white font-medium">
-              {lastRound?.clickScore.toFixed(0) || 0}/50
-            </div>
-          </div>
-        </div>
       </div>
     </GameResultsBase>
   );

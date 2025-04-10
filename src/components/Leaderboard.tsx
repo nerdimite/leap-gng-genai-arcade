@@ -82,29 +82,6 @@ export function Leaderboard() {
     return score.toLocaleString();
   };
 
-  // Function to render level stats as a subtitle
-  // const renderLevelStats = (
-  //   team: Team,
-  //   level: "level1" | "level2" | "level3" | "level4"
-  // ) => {
-  //   if (level === "level1") {
-  //     return team.stats.level1.roundsCompleted > 0
-  //       ? `${team.stats.level1.roundsCompleted} rounds`
-  //       : null;
-  //   } else if (level === "level2") {
-  //     return team.stats.level2.questionsAnswered > 0
-  //       ? `${team.stats.level2.correctAnswers}/${team.stats.level2.questionsAnswered} correct`
-  //       : null;
-  //   } else if (level === "level3") {
-  //     return team.stats.level3.completed ? "Completed" : null;
-  //   } else if (level === "level4") {
-  //     return team.stats.level4.questionsAnswered > 0
-  //       ? `${team.stats.level4.correctAnswers}/${team.stats.level4.questionsAnswered} correct`
-  //       : null;
-  //   }
-  //   return null;
-  // };
-
   // Function to render the appropriate content based on state
   const renderContent = () => {
     if (isLoading) {
@@ -129,14 +106,14 @@ export function Leaderboard() {
               <TableHead className="text-cyan-300">Rank</TableHead>
               <TableHead className="text-cyan-300">Team</TableHead>
               <TableHead className="text-cyan-300">
-                Level 1 (Wikipedia)
+                Level 1 (Quiz)
               </TableHead>
-              <TableHead className="text-cyan-300">Level 2 (Quiz)</TableHead>
+              <TableHead className="text-cyan-300">Level 2 (Crossword)</TableHead>
               <TableHead className="text-cyan-300">
-                Level 3 (Crossword)
+                Level 3 (Image Quiz)
               </TableHead>
               <TableHead className="text-cyan-300">
-                Level 4 (Image Quiz)
+                Level 4 (Wikipedia)
               </TableHead>
               <TableHead className="text-cyan-300">Total</TableHead>
             </TableRow>

@@ -22,16 +22,7 @@ export async function GET(request: NextRequest) {
     // Fetch scores for each team from the individual game APIs
     const teamsWithDetailedScores = await Promise.all(
       teams.map(async (team) => {
-        // Level 1: Wikipedia Game
-        const wikiResponse = await fetch(
-          `${
-            process.env.NEXT_PUBLIC_BASE_URL || ""
-          }/api/wikipedia-game/score?teamName=${encodeURIComponent(team.name)}`
-        );
-        const wikiData = await wikiResponse.json();
-        const wikipediaScore = wikiData.totalScore || 0;
-
-        // Level 2: Quiz Game
+        // Level 1: Quiz Game
         const quizResponse = await fetch(
           `${
             process.env.NEXT_PUBLIC_BASE_URL || ""
@@ -40,7 +31,7 @@ export async function GET(request: NextRequest) {
         const quizData = await quizResponse.json();
         const quizScore = quizData.totalScore || 0;
 
-        // Level 3: Crossword Game
+        // Level 2: Crossword Game
         const crosswordResponse = await fetch(
           `${
             process.env.NEXT_PUBLIC_BASE_URL || ""
@@ -49,7 +40,7 @@ export async function GET(request: NextRequest) {
         const crosswordData = await crosswordResponse.json();
         const crosswordScore = crosswordData.totalScore || 0;
 
-        // Level 4: Image Quiz Game
+        // Level 3: Image Quiz Game
         const imageQuizResponse = await fetch(
           `${
             process.env.NEXT_PUBLIC_BASE_URL || ""
@@ -57,6 +48,15 @@ export async function GET(request: NextRequest) {
         );
         const imageQuizData = await imageQuizResponse.json();
         const imageQuizScore = imageQuizData.totalScore || 0;
+
+        // Level 4: Wikipedia Game
+        const wikiResponse = await fetch(
+          `${
+            process.env.NEXT_PUBLIC_BASE_URL || ""
+          }/api/wikipedia-game/score?teamName=${encodeURIComponent(team.name)}`
+        );
+        const wikiData = await wikiResponse.json();
+        const wikipediaScore = wikiData.totalScore || 0;
 
         // Calculate total score
         const totalScore =
@@ -86,16 +86,16 @@ export async function GET(request: NextRequest) {
           name: team.name,
           currentLevel: team.currentLevel,
           scores: {
-            level1: wikipediaScore,
-            level2: quizScore,
-            level3: crosswordScore,
-            level4: imageQuizScore,
+            level1: quizScore,
+            level2: crosswordScore,
+            level3: imageQuizScore,
+            level4: wikipediaScore,
           },
           stats: {
-            level1: wikipediaStats,
-            level2: quizStats,
-            level3: crosswordStats,
-            level4: imageQuizStats,
+            level1: quizStats,
+            level2: crosswordStats,
+            level3: imageQuizStats,
+            level4: wikipediaStats,
           },
           totalScore: totalScore,
           createdAt: team.createdAt,

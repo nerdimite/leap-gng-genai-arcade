@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { RulesCard } from "@/components/RulesCard";
 import { Question, ApiQuestionData } from "@/components/quiz/Question";
 import { Result } from "@/components/quiz/Result";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { useTeam } from "@/contexts/TeamContext";
 
 // Updated game rules for AI Trivia Challenge
 const gameRules = [
@@ -27,9 +29,40 @@ export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] =
     useState<ApiQuestionData | null>(null);
   const [questionNumber, setQuestionNumber] = useState(1);
-  const [totalQuestions, setTotalQuestions] = useState(0);
   const [score, setScore] = useState(0);
+  const [finalScore, setFinalScore] = useState<number | null>(null);
   const router = useRouter();
+  const { team } = useTeam();
+
+  // Get score from the API when game state changes to results
+  useEffect(() => {
+    if (gameState === "results") {
+      getScore();
+    }
+  }, [gameState]);
+
+  // Function to get score from the API
+  const getScore = async () => {
+    if (!team) return;
+
+    try {
+      const response = await fetch(
+        `/api/quiz-game/score?teamName=${encodeURIComponent(team.name)}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setFinalScore(data.totalScore);
+      } else {
+        console.error("Failed to submit score");
+        // Fallback to using the local score if API fails
+        setFinalScore(score);
+      }
+    } catch (error) {
+      console.error("Error submitting score:", error);
+      // Fallback to using the local score if API fails
+      setFinalScore(score);
+    }
+  };
 
   // Load the first question when the game starts
   const loadFirstQuestion = async () => {
@@ -61,7 +94,6 @@ export default function QuizPage() {
 
       if (data.noMoreQuizzes) {
         // No more questions, show results
-        setTotalQuestions(questionNumber); // Set total questions to the number we've completed
         setGameState("results");
       } else if (data.quizId) {
         setCurrentQuestionId(data.quizId);
@@ -71,7 +103,6 @@ export default function QuizPage() {
     } catch (error) {
       console.error("Error loading next question:", error);
       // Switch to results if we can't load the next question
-      setTotalQuestions(questionNumber); // Set total questions to the number we've completed
       setGameState("results");
     }
   };
@@ -92,10 +123,10 @@ export default function QuizPage() {
   const handleRestart = () => {
     setGameState("rules");
     setScore(0);
+    setFinalScore(null);
     setCurrentQuestionId("");
     setCurrentQuestion(null);
     setQuestionNumber(1);
-    setTotalQuestions(0);
   };
 
   const handleBackToMenu = () => {
@@ -132,8 +163,7 @@ export default function QuizPage() {
 
       {gameState === "results" && (
         <Result
-          score={score}
-          totalQuestions={totalQuestions}
+          score={finalScore ?? score}
           onRestart={handleRestart}
         />
       )}

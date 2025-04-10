@@ -179,8 +179,14 @@ export function WikipediaGameplay({ onRestart }: WikipediaGameplayProps) {
 
         // Always update current page, but don't count clicks or start timer yet
         if (!isFirstLoad.current) {
-          // Add to history
-          setPageHistory((prev) => [...prev, newPage]);
+          // Check if this page is already the last one in the history to prevent duplicates
+          setPageHistory((prev) => {
+            // Don't add duplicate entries
+            if (prev.length > 0 && prev[prev.length - 1] === newPage) {
+              return prev;
+            }
+            return [...prev, newPage];
+          });
 
           // Pause timer during page load
           setPageLoaded(false);

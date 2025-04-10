@@ -15,18 +15,18 @@ interface ImageQuizConfig {
 
 // Image Quiz configuration data - stored server-side
 const IMAGE_QUIZZES: Record<string, ImageQuizConfig> = {
-  "deep-learning": {
-    imageUrl: "/images/quizzes/deep-learning-architecture.jpg",
-    question: "What neural network architecture is shown in this image?",
-    correctAnswer: "Convolutional Neural Network",
-    acceptableAnswers: ["CNN", "Convolutional Neural Network", "ConvNet"],
+  nlp: {
+    imageUrl: "/image-quiz/nlp.png",
+    question: "Decode the image to find the correct answer.",
+    correctAnswer: "Natural Language Processing",
+    acceptableAnswers: ["Natural Language Processing", "NLP", "NLPs"],
     explanation:
-      "The image shows a typical Convolutional Neural Network (CNN) architecture with convolutional layers, pooling layers, and fully connected layers.",
-    hint: "This architecture is commonly used for image recognition tasks",
+      "",
+    hint: "",
     order: 1,
   },
-  transformer: {
-    imageUrl: "/images/quizzes/transformer-architecture.jpg",
+  "computer-vision": {
+    imageUrl: "/image-quiz/computer-vision.png",
     question:
       "What AI model architecture revolutionized natural language processing and is shown in this diagram?",
     correctAnswer: "Transformer",
@@ -36,12 +36,42 @@ const IMAGE_QUIZZES: Record<string, ImageQuizConfig> = {
       "Attention is all you need",
     ],
     explanation:
-      "The diagram shows the Transformer architecture introduced in the 'Attention is All You Need' paper, which forms the foundation of models like BERT and GPT.",
-    hint: "This architecture introduced the self-attention mechanism and is the foundation of modern LLMs",
+      "",
+    hint: "",
     order: 2,
   },
-  gpt: {
-    imageUrl: "/images/quizzes/gpt-model.jpg",
+  vector: {
+    imageUrl: "/image-quiz/vector.png",
+    question:
+      "What AI model architecture revolutionized natural language processing and is shown in this diagram?",
+    correctAnswer: "Transformer",
+    acceptableAnswers: [
+      "Transformer",
+      "Transformer architecture",
+      "Attention is all you need",
+    ],
+    explanation:
+      "",
+    hint: "",
+    order: 3,
+  },
+  huggingface: {
+    imageUrl: "/image-quiz/huggingface.png",
+    question:
+      "What AI model architecture revolutionized natural language processing and is shown in this diagram?",
+    correctAnswer: "Transformer",
+    acceptableAnswers: [
+      "Transformer",
+      "Transformer architecture",
+      "Attention is all you need",
+    ],
+    explanation:
+      "",
+    hint: "",
+    order: 4,
+  },
+  llm: {
+    imageUrl: "/image-quiz/llm.png",
     question:
       "What generative AI model family is represented in this simplified architecture diagram?",
     correctAnswer: "GPT",
@@ -51,15 +81,15 @@ const IMAGE_QUIZZES: Record<string, ImageQuizConfig> = {
       "GPT architecture",
     ],
     explanation:
-      "The diagram shows the architecture of the GPT (Generative Pre-trained Transformer) model family, which uses a decoder-only transformer architecture.",
-    hint: "This model family powers ChatGPT",
-    order: 3,
+      "",
+    hint: "",
+    order: 5,
     isFinal: true,
   },
 };
 
 // Default image quiz ID
-const DEFAULT_IMAGE_QUIZ = "deep-learning";
+const DEFAULT_IMAGE_QUIZ = "nlp";
 
 // API to list available image quizzes without exposing answers
 export async function GET(req: NextRequest) {

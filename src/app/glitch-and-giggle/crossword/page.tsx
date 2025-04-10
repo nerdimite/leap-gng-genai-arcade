@@ -66,11 +66,7 @@ export default function CrosswordPage() {
       {gameState === "playing" && <CrosswordGrid onComplete={handleComplete} />}
 
       {gameState === "results" && (
-        <CrosswordResult
-          score={score}
-          maxScore={100}
-          onRestart={handleRestart}
-        />
+        <CrosswordResult score={score} onRestart={handleRestart} />
       )}
     </div>
   );

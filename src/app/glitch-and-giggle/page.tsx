@@ -25,14 +25,6 @@ export default function GlitchAndGigglePage() {
   const [levels, setLevels] = useState([
     {
       id: "1",
-      title: "Wikipedia Speedrun",
-      description: "Click through wikipedia articles to reach the end",
-      locked: false,
-      completed: false,
-      link: "/glitch-and-giggle/wikipedia",
-    },
-    {
-      id: "2",
       title: "Neural Blitz",
       description: "Rapid fire questions about AI to put you to the test",
       locked: true,
@@ -40,7 +32,7 @@ export default function GlitchAndGigglePage() {
       link: "/glitch-and-giggle/quiz",
     },
     {
-      id: "3",
+      id: "2",
       title: "Prompt Puzzler",
       description: "Not your ordinary monday crossword",
       locked: true,
@@ -48,12 +40,20 @@ export default function GlitchAndGigglePage() {
       link: "/glitch-and-giggle/crossword",
     },
     {
-      id: "4",
+      id: "3",
       title: "Visual Puzzler",
       description: "Recognize the AI concepts illustrated in the image",
       locked: true,
       completed: false,
       link: "/glitch-and-giggle/images",
+    },
+    {
+      id: "4",
+      title: "Wikipedia Speedrun",
+      description: "Click through wikipedia articles to reach the end",
+      locked: false,
+      completed: false,
+      link: "/glitch-and-giggle/wikipedia",
     },
   ]);
 
@@ -212,12 +212,25 @@ export default function GlitchAndGigglePage() {
       {/* Current Level Status */}
       {team && (
         <div className="mt-8 p-4 bg-gray-800 border-2 border-cyan-500 rounded-md">
-          <p className="text-cyan-300 font-[family-name:var(--font-vt323)] text-xl">
-            CURRENT PROGRESS: LEVEL {team.currentLevel} UNLOCKED
-          </p>
-          <p className="text-gray-400 mt-2">
-            Complete each level to unlock the next challenge!
-          </p>
+          {parseInt(team.currentLevel) < 5 ? (
+            <>
+              <p className="text-cyan-300 font-[family-name:var(--font-vt323)] text-xl">
+                CURRENT PROGRESS: LEVEL {team.currentLevel} UNLOCKED
+              </p>
+              <p className="text-gray-400 mt-2">
+                Complete each level to unlock the next challenge!
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-green-400 font-[family-name:var(--font-vt323)] text-xl">
+                CONGRATULATIONS! ALL LEVELS COMPLETED!
+              </p>
+              <p className="text-gray-400 mt-2">
+                Check your standings on the leaderboard!
+              </p>
+            </>
+          )}
         </div>
       )}
     </div>

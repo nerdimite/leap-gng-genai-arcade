@@ -3,7 +3,6 @@
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { Leaderboard } from "@/components/Leaderboard";
-import { TeamStatus } from "@/components/TeamStatus";
 
 export default function LeaderboardPage() {
   const router = useRouter();

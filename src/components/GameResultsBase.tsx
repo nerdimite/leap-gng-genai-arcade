@@ -12,10 +12,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { IconTrophy } from "@tabler/icons-react";
 
 type GameResultsBaseProps = {
   score: number;
-  maxScore: number;
   currentGameLevel: number;
   title: string;
   children?: ReactNode;
@@ -33,7 +33,6 @@ type GameResultsBaseProps = {
 
 export function GameResultsBase({
   score,
-  maxScore,
   currentGameLevel,
   title,
   children,
@@ -49,7 +48,6 @@ export function GameResultsBase({
 }: Readonly<GameResultsBaseProps>) {
   const { team, updateTeamScore, updateTeamLevel } = useTeam();
   const router = useRouter();
-  const percentage = Math.round((score / maxScore) * 100);
   const [confettiPieces, setConfettiPieces] = useState(0);
 
   // Window dimensions for confetti
@@ -73,7 +71,7 @@ export function GameResultsBase({
 
   // Start confetti effect if score is good
   useEffect(() => {
-    if (percentage >= 60) {
+    if (score >= 60) {
       // Start with full confetti
       setConfettiPieces(1000);
 
@@ -94,7 +92,7 @@ export function GameResultsBase({
       // Start fade out after 5 seconds of full celebration
       setTimeout(startFadeOut, 5000);
     }
-  }, [percentage]);
+  }, [score]);
 
   // Update team score and level in the database when the game is completed
   useEffect(() => {
@@ -110,21 +108,14 @@ export function GameResultsBase({
       // This prevents skipping levels or unlocking already unlocked levels
       if (
         teamLevel === currentGameLevel &&
-        teamLevel < 4 &&
+        teamLevel < 5 &&
         currentGameLevel + 1 > teamLevel
       ) {
         // Unlock next level
         updateTeamLevel((teamLevel + 1).toString());
       }
     }
-  }, [
-    score,
-    percentage,
-    team,
-    updateTeamScore,
-    updateTeamLevel,
-    currentGameLevel,
-  ]);
+  }, [score, team, updateTeamScore, updateTeamLevel, currentGameLevel]);
 
   const handleBackToLevels = () => {
     router.push("/glitch-and-giggle");
@@ -132,11 +123,11 @@ export function GameResultsBase({
 
   // Determine feedback message based on percentage
   const getFeedbackMessage = () => {
-    if (percentage >= 90) {
+    if (score >= 90) {
       return feedbackMessages.excellent;
-    } else if (percentage >= 70) {
+    } else if (score >= 70) {
       return feedbackMessages.good;
-    } else if (percentage >= 50) {
+    } else if (score >= 50) {
       return feedbackMessages.average;
     } else {
       return feedbackMessages.poor;
@@ -191,19 +182,23 @@ export function GameResultsBase({
 
       <CardContent className="flex flex-col items-center justify-center space-y-6">
         <div className="text-center">
-          <p className="text-4xl font-bold mb-2">
-            {score} / {maxScore}
-          </p>
-          <p className="text-xl">You scored {percentage}%</p>
+          <p className="text-xl">You scored</p>
+          <div className="text-center flex items-center justify-center gap-2">
+            <IconTrophy size={50} className="text-yellow-400 mx-auto" />
+            <div>
+              <div className="text-4xl font-bold text-white">{score}</div>
+              <div className="text-sm text-gray-300">POINTS</div>
+            </div>
+          </div>
         </div>
 
         {children}
 
         <p
           className={`text-lg ${
-            percentage >= 70
+            score >= 70
               ? "text-green-400"
-              : percentage >= 50
+              : score >= 50
               ? "text-yellow-400"
               : "text-red-400"
           }`}
@@ -211,16 +206,27 @@ export function GameResultsBase({
           {getFeedbackMessage()}
         </p>
 
-        {team &&
-          parseInt(team.currentLevel, 10) === currentGameLevel &&
-          percentage >= 70 && (
-            <div className="bg-green-900/30 p-4 rounded-md border border-green-500 text-center w-full">
-              <p className="text-green-400 font-bold mb-1">
-                Level {currentGameLevel + 1} Unlocked!
-              </p>
-              <p className="text-gray-300">{getUnlockMessage()}</p>
-            </div>
-          )}
+        {team && parseInt(team.currentLevel, 10) === currentGameLevel && (
+          <div className="bg-green-900/30 p-4 rounded-md border border-green-500 text-center w-full">
+            {currentGameLevel + 1 > 4 ? (
+              <>
+                <p className="text-green-400 font-bold mb-1">
+                  All Levels Complete!
+                </p>
+                <p className="text-gray-300">
+                  You can check your leaderboard standings now!
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-green-400 font-bold mb-1">
+                  Level {currentGameLevel + 1} Unlocked!
+                </p>
+                <p className="text-gray-300">{getUnlockMessage()}</p>
+              </>
+            )}
+          </div>
+        )}
       </CardContent>
 
       <CardFooter className="flex justify-center gap-4">

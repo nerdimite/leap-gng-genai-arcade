@@ -6,7 +6,6 @@ import { useTeam } from "@/contexts/TeamContext";
 
 type ResultProps = {
   score: number;
-  totalQuestions: number;
   onRestart?: () => void;
 };
 
@@ -16,12 +15,12 @@ type QuizSummary = {
   correctPercentage: number;
 };
 
-export function Result({ score, totalQuestions, onRestart }: Readonly<ResultProps>) {
+export function Result({ score, onRestart }: Readonly<ResultProps>) {
   const { team } = useTeam();
   const [quizSummary, setQuizSummary] = useState<QuizSummary | null>(null);
-  const currentGameLevel = 2; // Neural Blitz is level 2
+  const currentGameLevel = 1; // Neural Blitz is level 2
 
-  // Fetch quiz summary statistics
+  // Fetch score
   useEffect(() => {
     async function fetchQuizSummary() {
       if (!team) return;
@@ -45,7 +44,6 @@ export function Result({ score, totalQuestions, onRestart }: Readonly<ResultProp
   return (
     <GameResultsBase
       score={score}
-      maxScore={totalQuestions}
       currentGameLevel={currentGameLevel}
       title="Quiz Completed!"
       onRestart={onRestart}

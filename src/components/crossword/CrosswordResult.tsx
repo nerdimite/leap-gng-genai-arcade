@@ -5,17 +5,14 @@ import { GameResultsBase } from "@/components/GameResultsBase";
 
 type CrosswordResultProps = {
   score: number;
-  maxScore: number;
   onRestart: () => void;
 };
 
 export function CrosswordResult({
   score,
-  maxScore,
   onRestart,
 }: Readonly<CrosswordResultProps>) {
-  const currentGameLevel = 3; // Prompt Puzzler is level 3
-  const percentage = Math.round((score / maxScore) * 100);
+  const currentGameLevel = 2; // Prompt Puzzler is level 2
 
   // Custom feedback messages based on crossword performance
   const feedbackMessages = {
@@ -28,7 +25,6 @@ export function CrosswordResult({
   return (
     <GameResultsBase
       score={score}
-      maxScore={maxScore}
       currentGameLevel={currentGameLevel}
       title="CROSSWORD COMPLETE!"
       feedbackMessages={feedbackMessages}
@@ -38,7 +34,6 @@ export function CrosswordResult({
         <div className="bg-gray-700 p-6 rounded-full w-40 h-40 flex flex-col items-center justify-center">
           <IconTrophy size={40} className="text-yellow-400 mb-2" />
           <span className="text-4xl font-bold text-white">{score}</span>
-          <span className="text-lg text-gray-300">{percentage}%</span>
         </div>
 
         <div className="bg-gray-700 p-4 rounded-md w-full">
