@@ -31,7 +31,7 @@ const CROSSWORD_DATA = {
     },
     {
       number: 4,
-      clue: "Not a Transformer… but Elon swears it'll take out your trash someday.",
+      clue: "Not Bumblebee… but Elon swears it'll take out your trash someday.",
       answer: "OPTIMUS",
       row: 4,
       col: 5,

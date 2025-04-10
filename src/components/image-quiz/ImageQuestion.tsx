@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
 
 // Countdown timer constant
-const QUESTION_TIMER = 15; // 15 seconds per question
+const QUESTION_TIMER = 30; // 30 seconds per question
 
 type ImageQuestionData = {
   id: number;

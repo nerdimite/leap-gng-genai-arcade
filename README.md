@@ -38,3 +38,21 @@ bun next build
 The easiest way to deploy is using the [Vercel Platform](https://vercel.com/new).
 
 For more details, check the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
+
+## Database
+
+To recreate the dev.db file with Prisma, run:
+
+```
+bun prisma db push
+```
+
+This will create a new database based on your Prisma schema.
+
+If you have migrations set up, you should run:
+
+```
+bun prisma migrate dev
+```
+
+This will apply all migrations and create a fresh database. The system will prompt you to name the migration (you can call it "init" or "recreate_db").

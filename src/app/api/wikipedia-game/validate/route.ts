@@ -11,26 +11,25 @@ interface GameConfig {
 
 // Game configuration data - stored server-side
 const GAMES: Record<string, GameConfig> = {
-  embeddings: {
-    startPage: "Artificial_intelligence",
-    targetPage: "Word embedding",
-    hint: "Find the article about embeddings",
+  attention: {
+    startPage: "Biology",
+    targetPage: "Attention_(machine_learning)",
+    hint: "I let the model peek around, to find which words truly count — what am I?",
     order: 1,
   },
-  "neural-networks": {
-    startPage: "Artificial_intelligence",
-    targetPage: "Generative artificial intelligence",
-    hint: "Find the article about brain-inspired computing models",
+  embeddings: {
+    startPage: "Biology",
+    targetPage: "Word embedding",
+    hint: "(👑 KING – 👨 MAN) + 👩 WOMAN = ❓. This AI math might feel strange, but it's how AI understands language. What's the technique behind this?",
     order: 2,
   },
-  "quantum-computing": {
-    startPage: "Artificial_intelligence",
-    targetPage: "Stable Diffusion",
-    hint: "Find the article about computing using quantum-mechanical phenomena",
+  autoencoder: {
+    startPage: "Biology",
+    targetPage: "Autoencoder",
+    hint: "I compress, I decode, I learn without a guide. I see the input, hide its pride, then try to bring it back, side by side. What am I?",
     order: 3,
     isFinal: true,
   },
-  // Add more game configurations as needed
 };
 
 // Default game ID

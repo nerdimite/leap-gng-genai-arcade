@@ -21,7 +21,7 @@ const QUIZZES: Record<string, QuizConfig> = {
     acceptableAnswers: ["Siri", "Apple Siri"],
     explanation:
       "Siri was introduced in 2011 with the iPhone 4S, becoming the first major voice assistant on smartphones.",
-    hint: "It was released by Apple in 2011",
+    hint: "No hint for you, do it yourself",
     order: 1,
   },
   "ai-art": {
@@ -55,7 +55,7 @@ const QUIZZES: Record<string, QuizConfig> = {
     ],
     explanation:
       "OpenAI held back the full version of GPT-2 in 2019 due to concerns about potential misuse of the technology.",
-    hint: "It was a predecessor to GPT-3",
+    hint: "No hint for you, do it yourself",
     order: 3,
   },
   "microsoft-chatbot": {
@@ -87,7 +87,6 @@ const QUIZZES: Record<string, QuizConfig> = {
     order: 5,
     isFinal: true,
   },
-  // Add more quiz configurations as needed
 };
 
 // Default quiz ID
