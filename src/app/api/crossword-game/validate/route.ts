@@ -5,8 +5,8 @@ const CROSSWORD_DATA = {
   across: [
     {
       number: 2,
-      clue: "This Amazon pal lives in your speakers and loves to help... just shout out her name!",
-      answer: "ALEXA",
+      clue: "This AI can turn your text into stunning images.",
+      answer: "DALLE",
       row: 1,
       col: 0,
       length: 5,
@@ -16,7 +16,7 @@ const CROSSWORD_DATA = {
       clue: "This IBM brainiac aced a famous game show, proving AI's got smarts and trivia skills!",
       answer: "WATSON",
       row: 4,
-      col: 0,
+      col: 1,
       length: 6,
     },
   ],
@@ -26,22 +26,22 @@ const CROSSWORD_DATA = {
       clue: "The secret word that makes your smart speaker perk up its digital ears!",
       answer: "WAKEWORD",
       row: 0,
-      col: 0,
+      col: 1,
       length: 8,
     },
     {
       number: 4,
-      clue: "Wanna chat with Apple's brain? Just say her name!",
-      answer: "SIRI",
+      clue: "Not a Transformer… but Elon swears it'll take out your trash someday.",
+      answer: "OPTIMUS",
       row: 4,
-      col: 3,
-      length: 4,
+      col: 5,
+      length: 7,
     },
   ],
 };
 
 // API to get crossword clues without answers
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     // Return the crossword puzzle configuration without answers
     const clues = {
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Track which cells have been counted to avoid double-counting overlapping cells
-    const gridSize = 8; // Based on the crossword size
+    const gridSize = 11; // Based on the crossword size
     const countedCells = Array(gridSize)
       .fill(null)
       .map(() => Array(gridSize).fill(false));

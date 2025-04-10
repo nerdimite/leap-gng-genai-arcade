@@ -11,7 +11,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { IconLock, IconTrophy } from "@tabler/icons-react";
+import { IconLock } from "@tabler/icons-react";
+import { Trophy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTeam } from "@/contexts/TeamContext";
 
@@ -27,6 +28,7 @@ export default function GlitchAndGigglePage() {
       title: "Wikipedia Speedrun",
       description: "Click through wikipedia articles to reach the end",
       locked: false,
+      completed: false,
       link: "/glitch-and-giggle/wikipedia",
     },
     {
@@ -34,6 +36,7 @@ export default function GlitchAndGigglePage() {
       title: "Neural Blitz",
       description: "Rapid fire questions about AI to put you to the test",
       locked: true,
+      completed: false,
       link: "/glitch-and-giggle/quiz",
     },
     {
@@ -41,6 +44,7 @@ export default function GlitchAndGigglePage() {
       title: "Prompt Puzzler",
       description: "Not your ordinary monday crossword",
       locked: true,
+      completed: false,
       link: "/glitch-and-giggle/crossword",
     },
     {
@@ -48,6 +52,7 @@ export default function GlitchAndGigglePage() {
       title: "Visual Puzzler",
       description: "Recognize the AI concepts illustrated in the image",
       locked: true,
+      completed: false,
       link: "/glitch-and-giggle/images",
     },
   ]);
@@ -58,10 +63,14 @@ export default function GlitchAndGigglePage() {
       const teamLevel = parseInt(team.currentLevel, 10);
 
       setLevels((prevLevels) =>
-        prevLevels.map((level) => ({
-          ...level,
-          locked: parseInt(level.id, 10) > teamLevel,
-        }))
+        prevLevels.map((level) => {
+          const levelId = parseInt(level.id, 10);
+          return {
+            ...level,
+            locked: levelId > teamLevel,
+            completed: levelId < teamLevel,
+          };
+        })
       );
     }
   }, [team]);
@@ -79,6 +88,16 @@ export default function GlitchAndGigglePage() {
           </h2>
         </div>
 
+        <Button
+          onClick={() => router.push("/glitch-and-giggle/leaderboard")}
+          size="lg"
+          variant="glitch"
+          className="shadow-[4px_4px_0_0_#FFFF00] hover:shadow-[4px_4px_0_0_#CCCC00] bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700"
+        >
+          <Trophy size={30} />
+          LEADERBOARD
+        </Button>
+
         <div className="flex gap-4">
           <div className="bg-amber-500 p-3 border-4 border-amber-400">
             <div className="text-xl font-[family-name:var(--font-vt323)] flex items-center">
@@ -86,14 +105,6 @@ export default function GlitchAndGigglePage() {
               <span className="text-black font-bold">{team?.score || 0}</span>
             </div>
           </div>
-
-          <Button
-            onClick={() => router.push("/glitch-and-giggle/leaderboard")}
-            className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold"
-          >
-            <IconTrophy className="h-5 w-5 mr-2" />
-            LEADERBOARD
-          </Button>
         </div>
       </div>
 
@@ -174,6 +185,14 @@ export default function GlitchAndGigglePage() {
                     disabled
                   >
                     LOCKED
+                  </Button>
+                ) : level.completed ? (
+                  <Button
+                    variant="glitch"
+                    className="w-full bg-green-700 hover:bg-green-800"
+                    disabled
+                  >
+                    COMPLETED
                   </Button>
                 ) : (
                   <Button

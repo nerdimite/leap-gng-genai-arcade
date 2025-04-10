@@ -24,20 +24,13 @@ export default function LeaderboardPage() {
 
       <h1
         className="text-4xl md:text-5xl font-bold text-center font-[family-name:var(--font-vt323)] 
-        text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500
-        drop-shadow-[0_0_10px_rgba(0,255,255,0.5)] mb-8"
+        text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-800
+        drop-shadow-[0_0_10px_rgba(255,215,0,0.5)] mb-8"
       >
         LEADERBOARD
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-1">
-          <TeamStatus />
-        </div>
-        <div className="md:col-span-2">
-          <Leaderboard />
-        </div>
-      </div>
+      <Leaderboard />
     </div>
   );
 }

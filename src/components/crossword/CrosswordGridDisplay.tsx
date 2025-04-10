@@ -3,7 +3,8 @@
 type CrosswordGridDisplayProps = {
   grid: string[][];
   crosswordData: {
-    size: number;
+    rows: number;
+    cols: number;
     across: {
       number: number;
       clue: string;
@@ -38,7 +39,7 @@ export function CrosswordGridDisplay({
   getCellNumber,
   handleCellClick,
   handleKeyDown,
-}: CrosswordGridDisplayProps) {
+}: Readonly<CrosswordGridDisplayProps>) {
   return (
     <div className="flex flex-col items-center w-full">
       <div
@@ -46,10 +47,10 @@ export function CrosswordGridDisplay({
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
-        {Array(crosswordData.size)
+        {Array(crosswordData.rows)
           .fill(null)
           .map((_, rowIndex) =>
-            Array(crosswordData.size)
+            Array(crosswordData.cols)
               .fill(null)
               .map((_, colIndex) => (
                 <div

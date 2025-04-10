@@ -32,15 +32,20 @@ interface CrosswordWord {
 }
 
 interface CrosswordDataType {
-  size: number;
+  rows: number;
+  cols: number;
   across: CrosswordWord[];
   down: CrosswordWord[];
 }
 
+const ROW_SIZE = 11;
+const COL_SIZE = 8;
+
 export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
   const { team } = useTeam();
   const [crosswordData, setCrosswordData] = useState<CrosswordDataType>({
-    size: 8,
+    rows: ROW_SIZE,
+    cols: COL_SIZE,
     across: [],
     down: [],
   });
@@ -68,7 +73,8 @@ export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
 
         // Transform the API data to include dummy answer property
         const transformedData: CrosswordDataType = {
-          size: 8,
+          rows: ROW_SIZE,
+          cols: COL_SIZE,
           across: data.across.map(
             (word: {
               number: number;
@@ -99,9 +105,9 @@ export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
 
         // Initialize the grid based on the crossword size
         setGrid(
-          Array(8)
+          Array(ROW_SIZE)
             .fill(null)
-            .map(() => Array(8).fill(""))
+            .map(() => Array(COL_SIZE).fill(""))
         );
       } catch (error) {
         console.error("Error fetching crossword data:", error);
@@ -207,9 +213,9 @@ export function CrosswordGrid({ onComplete }: CrosswordGridProps) {
 
     while (
       nextRow >= 0 &&
-      nextRow < crosswordData.size &&
+      nextRow < crosswordData.rows &&
       nextCol >= 0 &&
-      nextCol < crosswordData.size
+      nextCol < crosswordData.cols
     ) {
       if (!isCellBlack(nextRow, nextCol)) {
         return rowDelta !== 0 ? nextRow : nextCol;

@@ -32,6 +32,11 @@ const QUIZZES: Record<string, QuizConfig> = {
       "Portrait of Edmond de Belamy",
       "Edmond de Belamy",
       "Belamy portrait",
+      "Edmond belamy",
+      "Portrait Edmond de Belamy",
+      "Edmond de Belamy",
+      "Edmond de Belamy portrait",
+      "belamy",
     ],
     explanation:
       "The 'Portrait of Edmond de Belamy' was sold for $432,500 at Christie's auction in 2018, becoming the first AI-generated artwork sold at a major auction house.",
@@ -42,7 +47,12 @@ const QUIZZES: Record<string, QuizConfig> = {
     question:
       "What was the name of the AI model that OpenAI initially decided not to release fully because they thought it was too powerful?",
     correctAnswer: "GPT-2",
-    acceptableAnswers: ["GPT-2", "GPT2", "GPT 2"],
+    acceptableAnswers: [
+      "GPT-2",
+      "GPT2",
+      "GPT 2",
+      "generative pre-trained transformer 2",
+    ],
     explanation:
       "OpenAI held back the full version of GPT-2 in 2019 due to concerns about potential misuse of the technology.",
     hint: "It was a predecessor to GPT-3",
@@ -64,8 +74,12 @@ const QUIZZES: Record<string, QuizConfig> = {
     correctAnswer: "Heart on My Sleeve",
     acceptableAnswers: [
       "Heart on My Sleeve",
-      "Heart on my sleeve",
-      "Heart On My Sleeve",
+      "Heart sleeve",
+      "heart in my sleeve",
+      "heart of my sleeve",
+      "heart of sleeve",
+      "heart on sleeve",
+      "heart my sleeve",
     ],
     explanation:
       "'Heart on My Sleeve' was created by an anonymous AI artist and featured AI-generated vocals mimicking Drake and The Weeknd. It got millions of plays before being removed from streaming platforms!",

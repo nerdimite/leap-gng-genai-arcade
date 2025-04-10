@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
     // Calculate scores for each round
     const roundScores = completedGames.map((game) => {
       const timeScore = parseFloat(Math.max(0, 50 - Math.min(50, game.timeTaken / 3)).toFixed(2));
-      const clickScore = parseFloat(Math.max(0, 50 - Math.min(50, game.clicks * 5)).toFixed(2));
+      const clickScore = parseFloat(Math.max(0, 50 - Math.min(50, (game.clicks - 1) * 5)).toFixed(2));
       const roundScore = parseFloat((timeScore + clickScore).toFixed(2));
 
       return {
@@ -55,10 +55,14 @@ export async function GET(req: NextRequest) {
     });
 
     // Calculate total score
-    const totalScore = parseFloat(roundScores.reduce(
-      (sum, round) => sum + round.roundScore,
-      0
-    ).toFixed(2));
+    const MAX_ROUNDS = 3;
+    const totalScore = parseFloat(
+      (
+        roundScores.reduce((sum, round) => sum + round.roundScore, 0) /
+        (MAX_ROUNDS * 100) *
+        100
+      ).toFixed(2)
+    );
 
     return NextResponse.json({
       totalScore,

@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
     // Calculate scores for each question
     const questionScores = completedGames.map((game) => {
       // If answer is incorrect, score is 0 regardless of time
-      const basePoints = game.isCorrect ? 5 : 0;
+      const basePoints = game.isCorrect ? 10 : 0;
       const timeBonus = game.isCorrect
         ? Math.max(0, 10 - Math.min(10, game.timeTaken))
         : 0;

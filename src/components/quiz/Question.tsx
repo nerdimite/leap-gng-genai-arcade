@@ -40,7 +40,7 @@ type QuestionProps = {
 };
 
 // Constants
-const QUESTION_TIMER = 10; // 10 seconds per question
+const QUESTION_TIMER = 15; // 15 seconds per question
 
 export function Question({
   data,
