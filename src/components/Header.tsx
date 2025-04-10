@@ -12,16 +12,7 @@ export function Header() {
           GenAI Arcade
         </Link>
 
-        <UserButton
-          afterSignOutUrl="/"
-          appearance={{
-            baseTheme: "dark",
-            elements: {
-              userButtonAvatarBox: "w-10 h-10",
-              userButtonTrigger: "focus:shadow-none focus:outline-none",
-            },
-          }}
-        />
+        <UserButton />
       </div>
     </header>
   );
