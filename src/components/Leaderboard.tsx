@@ -72,9 +72,9 @@ export function Leaderboard() {
 
     fetchLeaderboard();
 
-    // Refresh leaderboard every 30 seconds
-    const interval = setInterval(fetchLeaderboard, 30000);
-    return () => clearInterval(interval);
+    // // Refresh leaderboard every 30 seconds
+    // const interval = setInterval(fetchLeaderboard, 30000);
+    // return () => clearInterval(interval);
   }, []);
 
   // Function to format scores neatly

@@ -13,7 +13,7 @@ interface GameConfig {
 const GAMES: Record<string, GameConfig> = {
   attention: {
     startPage: "Biology",
-    targetPage: "Attention_(machine_learning)",
+    targetPage: "Attention (machine learning)",
     hint: "I let the model peek around, to find which words truly count — what am I?",
     order: 1,
   },

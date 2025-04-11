@@ -36,8 +36,8 @@ export async function GET(req: NextRequest) {
 
     // Calculate scores for each game
     const gameResults = completedGames.map((game) => {
-      // Time-based scoring: 50 points max, reduced by 1 point per second
-      const timeScore = Math.max(0, 100 - Math.min(100, game.timeTaken));
+      // Time-based scoring: 180 points max, reduced by 1 point per second
+      const timeScore = 30 + Math.max(0, 500 - Math.min(500, game.timeTaken));
 
       return {
         gameId: game.id.toString(),

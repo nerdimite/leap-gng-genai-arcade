@@ -11,12 +11,11 @@ export default function WikipediaSpeedRunPage() {
 
   // Game rules for Wikipedia Speed Run
   const gameRules = [
-    "You will be given a starting Wikipedia article and a hint or riddle to guess the target article.",
+    "This is a classic wikipedia speedrun but with an AI twist and a few extra rules.",
+    "You will be given a starting Wikipedia article and a hint or riddle to guess the target/destination article.",
     "Navigate from the starting article to the target by clicking only on links within Wikipedia articles.",
-    "Try to reach the target in as few clicks as possible.",
     "The game tracks your path and number of clicks.",
-    "You can restart at any time, but your points will be reset.",
-    "Earn 50 points for completing the challenge, with bonus points for speed and efficiency.",
+    "Try to reach the target in as few clicks as possible and as fast as possible to earn the highest points.",
   ];
 
   const handleStartGame = () => {

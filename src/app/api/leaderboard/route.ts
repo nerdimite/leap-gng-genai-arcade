@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const limitParam = searchParams.get("limit");
-  const limit = limitParam ? parseInt(limitParam, 10) : 10;
+  const limit = 200;
 
   try {
     // Get all teams

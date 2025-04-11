@@ -45,7 +45,7 @@ def main(csv_path: Optional[str] = None):
     failure_count = 0
     
     for user in users:
-        print(f"Creating user: {user.get('username', user.get('email', 'Unknown'))}")
+        print(f"Creating user: {user['username']}")
         result = create_user(user)
         
         if "id" in result:

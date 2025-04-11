@@ -11,10 +11,11 @@ import { CrosswordResult } from "@/components/crossword/CrosswordResult";
 const gameRules = [
   "Solve the crossword puzzle with AI-related terms and concepts.",
   "Fill in the words by answering the clues provided.",
-  "All answers are related to artificial intelligence, machine learning, or data science.",
+  "All answers are related to artificial intelligence, machine learning, or robotics",
   "Click on a cell to select it, then type your answer.",
   "Arrow keys can be used to navigate between cells.",
-  "Complete the entire crossword to win.",
+  "Complete the entire crossword to finish.",
+  "This is a time-based round, so the faster you finish, the more points you earn.",
 ];
 
 // Game states
@@ -57,7 +58,7 @@ export default function CrosswordPage() {
       {gameState === "rules" && (
         <RulesCard
           title="AI CROSSWORD CHALLENGE"
-          duration="10-15 minutes"
+          duration="3 minutes"
           rules={gameRules}
           onStart={handleStartGame}
         />

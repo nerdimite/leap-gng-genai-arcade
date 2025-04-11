@@ -12,11 +12,12 @@ import { useTeam } from "@/contexts/TeamContext";
 // Updated game rules for AI Trivia Challenge
 const gameRules = [
   "You will be presented with challenging questions about AI history and technology.",
-  "You have 10 seconds to answer each question.",
+  "You have 20 seconds to answer each question.",
   "Type your answer in the input field and submit.",
+  "You can also get an hint by clicking the hint button.",
   "If you don't answer in time, the question will be marked as incorrect.",
-  "Each correct answer earns you points.",
-  "Try to answer all questions correctly to achieve the highest score!",
+  "Each correct answer earns you points and your time is recorded.",
+  "Try to answer all questions correctly and with speed to achieve the highest score!",
   "The number of questions is a mystery until you reach the end!",
 ];
 
@@ -146,7 +147,7 @@ export default function QuizPage() {
       {gameState === "rules" && (
         <RulesCard
           title="AI TRIVIA CHALLENGE"
-          duration="5-10 minutes"
+          duration="2 minutes"
           rules={gameRules}
           onStart={handleStartGame}
         />

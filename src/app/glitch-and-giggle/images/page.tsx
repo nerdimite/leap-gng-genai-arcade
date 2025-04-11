@@ -11,13 +11,12 @@ import { useTeam } from "@/contexts/TeamContext";
 
 // Game rules
 const gameRules = [
-  "You will be shown AI-related images.",
+  "You will be shown an image which you need to decode into a word(s) related to AI.",
   "Type your answer in the text box provided.",
   "Be specific but don't worry about exact wording - we accept multiple variations of the correct answer.",
-  "You can use the hint button if you're stuck, but try without it first!",
+  "You have 30 seconds to answer each question.",
   "Each correct answer earns you points.",
-  "Try to get all correct to achieve the highest score.",
-  "You have 15 seconds to answer each question.",
+  "Try to answer all questions correctly and with speed to achieve the highest score!",
 ];
 
 // Game states
@@ -178,8 +177,8 @@ export default function ImageQuizPage() {
 
       {gameState === "rules" && (
         <RulesCard
-          title="AI VISUAL CHALLENGE"
-          duration="5-10 minutes"
+          title="IMAGE QUIZ CHALLENGE"
+          duration="2.5 minutes"
           rules={gameRules}
           onStart={handleStartGame}
         />
